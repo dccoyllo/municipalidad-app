@@ -5,9 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rol extends Model
+class Persona_Juridico extends Model
 {
     use HasFactory;
-    protected $table = 'Rol';
-    protected $primaryKey = 'id_rol';
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Servicios;
+use App\Models\Servicio;
 use Illuminate\Http\Request;
 class ServicioController extends Controller
 {
@@ -13,7 +13,7 @@ class ServicioController extends Controller
      */
     public function index()
     {
-        $servicios = Servicios::all();
+        $servicios = Servicio::all();
         return view('modulo.servicio.servicio', compact('servicios'));
     }
 

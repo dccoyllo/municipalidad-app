@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Oficinas;
+use App\Models\Oficina;
 use Illuminate\Http\Request;
 
 class OficinaController extends Controller
@@ -14,7 +14,7 @@ class OficinaController extends Controller
      */
     public function index()
     {
-        $oficinas = Oficinas::all();
+        $oficinas = Oficina::all();
         return view('modulo.oficina.oficina', compact('oficinas'));
     }
 

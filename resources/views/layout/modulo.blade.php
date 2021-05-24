@@ -4,8 +4,24 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
             <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
-            <h5 class="centered">Jhon David</h5>
-            <h6 class="centered">Administrador</h6>
+            @foreach (auth()->user()->empleado()->get() as $empleado)
+                <h5 class="centered">{{ $empleado->NOMBRE }}</h5>
+            @endforeach
+            @foreach (auth()->user()->rol()->get() as $rol)
+                <h6 class="centered">{{ $rol->NOMBRE }}</h6>
+            @endforeach
+
+            @foreach (auth()->user()->rol()->get() as $rol)
+                <h6 class="centered">{{ $rol->ID_ROL }}</h6>
+            @endforeach
+            {{-- <p>{{ Session::get('modulo') }}</p> --}}
+            <p>{{ session('modulo') }}</p>
+
+            @foreach ( session('modulo') as $rol_modulo)
+                <h6 class="centered">{{ $rol_modulo->rol()->get()}}</h6>
+                
+            @endforeach
+            
 
             <li>
                 <a href="index.html" class="active">

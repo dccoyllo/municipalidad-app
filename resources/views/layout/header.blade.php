@@ -59,7 +59,7 @@
       </div>
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
-          <li><a class="logout" href="/login"><i class="fa fa-sign-out"></i> Cerrar Sesion</a></li>
+          <li><a class="logout" href={{ route('logout') }}><i class="fa fa-sign-out"></i> Cerrar Sesion</a></li>
         </ul>
       </div>
     </header>

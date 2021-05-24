@@ -21,20 +21,35 @@
 <body>
   <div id="login-page">
     <div class="container">
-      <form class="form-login" action="/">
+      <form class="form-login" action={{ route('dataLogin') }} method="POST">
+        @csrf
         <h2 class="form-login-heading">Iniciar Sesion</h2>
         <div class="login-wrap">
-          <input type="text" class="form-control" placeholder="Cuenta" autofocus>
+          <input type="text" class="form-control" id="{{ $errors->has('cuenta') ? 'focusedInput' : '' }}" placeholder="Cuenta" autofocus name="cuenta">
+          @error('cuenta')
+          <p class="help-block">por favor no deje este campo vacío</p>
+          @enderror
           <br>
-          <input type="password" class="form-control" placeholder="Contraseña">
+          <input type="password" class="form-control" id="{{ $errors->has('password') ? 'focusedInput' : '' }}" placeholder="Contraseña" name="password">
+          @error('password')
+          <p class="help-block">por favor no deje este campo vacío</p>
+          @enderror
+          <br>
           <label class="checkbox">
-            <input type="checkbox" value="remember-me"> Recuerdame
+            {{-- <input type="checkbox" value="remember-me"> Recuerdame --}}
             <span class="pull-right">
             <a data-toggle="modal" href="login.html#myModal"> Olvidé mi contraseña?</a>
             </span>
+            <br>
             </label>
-          <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i> Ingresar</button>
-          
+          <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> Ingresar</button>
+          <br>
+          @error('mensaje')
+          <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{ $errors->first('mensaje') }}.
+          </div>
+          @enderror
         </div>
       </form>
     </div>
