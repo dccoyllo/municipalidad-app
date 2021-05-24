@@ -202,4 +202,8 @@ REFERENCES ROL(ID_ROL)
 );*/
 INSERT INTO USERS
 VALUES
-(1, 'admin', 'admin@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 1, 1, null, current_date(), current_date());
+(1, 'admin', 'admin@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 1, 1, null, current_date(), current_date()),
+(2, 'admin2', 'admin2@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 2, 2, null, current_date(), current_date()),
+(3, 'admin3', 'admin3@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 3, 3, null, current_date(), current_date()),
+(4, 'admin4', 'admin4@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 4, 4, null, current_date(), current_date()),
+(5, 'admin5', 'admin5@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 5, 5, null, current_date(), current_date());
