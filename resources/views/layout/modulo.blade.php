@@ -4,49 +4,51 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
             <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
-            @foreach (auth()->user()->empleado()->get() as $empleado)
-                <h5 class="centered">{{ $empleado->NOMBRE }}</h5>
-            @endforeach
-            @foreach (auth()->user()->rol()->get() as $rol)
-                <h6 class="centered">{{ $rol->NOMBRE }}</h6>
-            @endforeach
+            <h5 class="centered">{{ auth()->user()->empleado->NOMBRE }}</h5>
+            <h6 class="centered">{{ auth()->user()->rol->NOMBRE }}</h6>
 
-            @foreach (auth()->user()->rol()->get() as $rol)
-                <h6 class="centered">{{ $rol->ID_ROL }}</h6>
-            @endforeach
-            {{-- <p>{{ Session::get('modulo') }}</p> --}}
-            <p>{{ session('modulo') }}</p>
+            {{-- <p>{{ Session::get('rolmodulo')->NOMBRE }}</p> --}}
 
-            @foreach ( session('modulo') as $rol_modulo)
-                <h6 class="centered">{{ $rol_modulo->rol()->get()}}</h6>
-                
-            @endforeach
+            {{-- <p>{{ session('modulo') }}</p>
+            <p class="centered">{{ auth()->user()->rol->ID_ROL }}</p>
+
+            <p>{{ session('rolmodulo') }}</p> --}}
+
+            {{-- @foreach ( session('rolmodulo') as $rol_modulo)
+                <h6 class="centered">{{ $rol_modulo->modulo}}</h6>
+            @endforeach --}}
             
-
             <li>
-                <a href="index.html" class="active">
+                <a href="/" class="active">
                     <i class="fa fa-home"></i>
                     <span>Inicio</span>
                 </a>
             </li>
-            <li>
-                <a href="index.html">
-                    <i class="fa fa-home"></i>
-                    <span>Servicio</span>
-                </a>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;">
-                    <i class="fa fa-desktop"></i>
-                    <span>UI Elements</span>
-                </a>
-                <ul class="sub">
-                    <li><a href="general.html">General</a></li>
-                    <li><a href="buttons.html">Buttons</a></li>
-                    <li><a href="panels.html">Panels</a></li>
-                    <li><a href="font_awesome.html">Font Awesome</a></li>
-                </ul>
-            </li>
+            @foreach ( session('rolmodulo') as $rol_modulo)
+
+                @if ($rol_modulo->ID_ROL == auth()->user()->rol->ID_ROL)
+                    @foreach ( session('modulo') as $modulo)
+
+                        @if ($modulo->ID_MODULO == $rol_modulo->ID_MODULO)
+                            <li>
+                                <a href={{ $modulo->URL }}>
+                                    <i class="fa {{ $modulo->ICONO }}"></i>
+                                    <span>{{ $modulo->NOMBRE}}</span>
+                                </a>
+                            </li>
+                        @endif
+
+                    @endforeach
+                
+                @endif
+                
+            @endforeach
+
+            {{-- @foreach ( session('rolmodulo') as $rol_modulo)
+                <h6 class="centered">{{ $rol_modulo}}</h6>
+            @endforeach
+             --}}
+
         </ul>
         <!-- sidebar menu end-->
     </div>

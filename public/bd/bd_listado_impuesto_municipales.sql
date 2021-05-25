@@ -5,7 +5,6 @@ INSERT INTO `bd_impuestos_municipales`.`servicio` (`NOMBRE`, `DESCRIPCION`, `TAR
 INSERT INTO `bd_impuestos_municipales`.`servicio` (`NOMBRE`, `DESCRIPCION`, `TARIFA`, `RUBRO`) VALUES ('Alumbrado Publico', 'Promoveer la iluminacion necesaria en los espacios publicos, con el fin de garantizar la seguridad de peatones y vehiculos.', '2313', 'Servicio');
 INSERT INTO `bd_impuestos_municipales`.`servicio` (`NOMBRE`, `DESCRIPCION`, `TARIFA`, `RUBRO`) VALUES ('Administracion del Cementerio', 'Contruimos, habilitamos, conservamos y administramos los cementerios.', '7899', 'Servicio');
 
-
 INSERT INTO `bd_impuestos_municipales`.`oficina` (`COD`, `NOMBRE`) VALUES ('001', 'Oficina de secretaria general');
 INSERT INTO `bd_impuestos_municipales`.`oficina` (`COD`, `NOMBRE`) VALUES ('101', 'Oficina de administracion y finanazas');
 INSERT INTO `bd_impuestos_municipales`.`oficina` (`COD`, `NOMBRE`) VALUES ('102', 'Oficina de asesoria juridica');

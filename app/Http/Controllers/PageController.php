@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rol_Modulo;
+use App\Models\Modulo;
+use App\Models\RolModulo;
+// use App\Models\RolModulo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Expr\AssignOp\Mod;
 
 class PageController extends Controller
 {
@@ -22,7 +23,8 @@ class PageController extends Controller
         ]);
         $credentials = $request->only('cuenta', 'password');
         if (Auth::attempt($credentials)) {
-            $request->session()->put('modulo', Rol_Modulo::all());
+            $request->session()->put('modulo', Modulo::all());
+            $request->session()->put('rolmodulo', RolModulo::all());
             $request->session()->regenerate();
             return redirect()->intended('/');
         }

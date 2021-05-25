@@ -39,51 +39,52 @@ CREATE TABLE MODULO
 (
 ID_MODULO INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 NOMBRE VARCHAR(35) NOT NULL,
-DESCRIPCION VARCHAR(100)
+ICONO VARCHAR(35),
+ESTADO BOOLEAN NOT NULL,
+URL VARCHAR(45)
 );
 INSERT INTO MODULO
 VALUES
-(1, 'Empleado', ''),
-(2, 'Contrato', ''),
-(3, 'Contribuyente', ''),
-(4, 'Oficina', ''),
-(5, 'Servicio', ''),
-(6, 'Usuario', '');
+(1, 'Empleado', '', 1, 'empleado'),
+(2, 'Contrato', '', 1, 'contrato'),
+(3, 'Contribuyente', '', 1, 'contribuyente'),
+(4, 'Oficina', '', 1, 'oficina'),
+(5, 'Servicio', '', 1, 'servicio'),
+(6, 'Usuario', '', 1, 'usuario');
 
 CREATE TABLE ROL_MODULO
 (
 ID_ROL_MODULO INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 ID_ROL INT NOT NULL,
 ID_MODULO INT NOT NULL,
-ESTADO BOOLEAN NOT NULL,
 CONSTRAINT FK_ID_ROL FOREIGN KEY(ID_ROL)
-REFERENCES ROL(ID_ROL),
+REFERENCES ROL(ID_ROL) ON DELETE CASCADE,
 CONSTRAINT FK_ID_MODULO FOREIGN KEY(ID_MODULO)
-REFERENCES MODULO(ID_MODULO)
+REFERENCES MODULO(ID_MODULO) ON DELETE CASCADE
 );
 INSERT INTO ROL_MODULO
 VALUES
 /*Administrador*/
-(1, 1, 1, 1),
-(2, 1, 2, 1),
-(3, 1, 3, 1),
-(4, 1, 4, 1),
-(5, 1, 5, 1),
-(6, 1, 6, 1),
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 1, 6),
 /*Logistica*/
-(7, 2, 1, 1),
-(8, 2, 2, 1),
+(7, 2, 1),
+(8, 2, 2),
 /*Recursos Humanos*/
-(9, 3, 3, 1),
-(10, 3, 4, 1),
+(9, 3, 3),
+(10, 3, 4),
 /*Operaciones*/
-(11, 4, 5, 1),
-(12, 4, 6, 1),
+(11, 4, 5),
+(12, 4, 6),
 /*Planeamiento*/
-(13, 5, 3, 1),
-(14, 5, 4, 1),
-(15, 5, 5, 1),
-(16, 5, 6, 1);
+(13, 5, 3),
+(14, 5, 4),
+(15, 5, 5),
+(16, 5, 6);
 
 CREATE TABLE SERVICIO
 (
