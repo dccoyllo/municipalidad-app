@@ -4,8 +4,8 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
             <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
-            <h5 class="centered">{{ auth()->user()->empleado->NOMBRE }}</h5>
-            <h6 class="centered">{{ auth()->user()->rol->NOMBRE }}</h6>
+            <h5 class="centered">{{ auth()->user()->empleado->nombre }}</h5>
+            <h6 class="centered">{{ auth()->user()->rol->nombre }}</h6>
 
             {{-- <p>{{ Session::get('rolmodulo')->NOMBRE }}</p> --}}
 
@@ -26,14 +26,14 @@
             </li>
             @foreach ( session('rolmodulo') as $rol_modulo)
 
-                @if ($rol_modulo->ID_ROL == auth()->user()->rol->ID_ROL)
+                @if ($rol_modulo->id_rol == auth()->user()->rol->id_rol)
                     @foreach ( session('modulo') as $modulo)
 
-                        @if ($modulo->ID_MODULO == $rol_modulo->ID_MODULO)
+                        @if ($modulo->id_modulo == $rol_modulo->id_modulo)
                             <li>
-                                <a href={{ $modulo->URL }}>
-                                    <i class="fa {{ $modulo->ICONO }}"></i>
-                                    <span>{{ $modulo->NOMBRE}}</span>
+                                <a href={{ $modulo->url }}>
+                                    <i class="fa {{ $modulo->icono }}"></i>
+                                    <span>{{ $modulo->nombre}}</span>
                                 </a>
                             </li>
                         @endif

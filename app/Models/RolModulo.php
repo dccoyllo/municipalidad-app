@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RolModulo extends Model
 {
     use HasFactory;
-    protected $table = 'Rol_modulo';
+    protected $table = 'rol_modulo';
     protected $primaryKey = 'id_rol_modulo';
 
     public function rol()

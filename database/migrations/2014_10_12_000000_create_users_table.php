@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->boolean('estado');
             $table->integer('id_empleado');
             $table->integer('id_rol');
-            $table->foreign('id_empleado')->references('id_empleado')->on('EMPLEADO')->onDelete('cascade');
-            $table->foreign('id_rol')->references('id_rol')->on('ROL')->onDelete('cascade');
+            $table->foreign('id_empleado')->references('id_empleado')->on('empleado')->onDelete('cascade');
+            $table->foreign('id_rol')->references('id_rol')->on('rol')->onDelete('cascade');
             // $table->foreignId('id_rol')->on('Rol');
             $table->rememberToken();
             $table->timestamps();

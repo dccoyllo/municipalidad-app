@@ -1,209 +1,209 @@
-CREATE DATABASE bd_impuestos_municipales;
-USE bd_impuestos_municipales;
-/*probando cambios*/
+create database bd_impuestos_municipales;
+use bd_impuestos_municipales;
+/*probando cambios a todo minuscula*/
 
-CREATE TABLE OFICINA
+create table oficina
 (
-ID_OFICINA INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-COD INT NOT NULL,
-NOMBRE VARCHAR(50) NOT NULL
+id_oficina int not null primary key auto_increment,
+cod int not null,
+nombre varchar(50) not null
 );
 
-CREATE TABLE EMPLEADO
+create table empleado
 (
-ID_EMPLEADO INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-DNI INT(8) NOT NULL UNIQUE,
-NOMBRE VARCHAR(25) NOT NULL,
-APELLIDO VARCHAR(35) NOT NULL,
-CARGO VARCHAR(45) NOT NULL,
+id_empleado int not null primary key auto_increment,
+dni int(8) not null unique,
+nombre varchar(25) not null,
+apellido varchar(35) not null,
+cargo varchar(45) not null,
 
-ID_OFICINA INT NOT NULL,
-CONSTRAINT FK_ID_OFICINA FOREIGN KEY (ID_OFICINA)
-REFERENCES OFICINA(ID_OFICINA)
+id_oficina int not null,
+constraint fk_id_oficina foreign key (id_oficina)
+references oficina(id_oficina)
 );
 
-CREATE TABLE ROL
+create table rol
 (
-ID_ROL INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-NOMBRE VARCHAR(35) NOT NULL,
-DESCRIPCION VARCHAR(100)
+id_rol int not null primary key auto_increment,
+nombre varchar(35) not null,
+descripcion varchar(100)
 );
-INSERT INTO ROL
-VALUES
-(1, 'Administrador', 'Encargado de administrar todas las funciones del sistema'),
+insert into rol
+values
+(1, 'Administrador', 'encargado de administrar todas las funciones del sistema'),
 (2, 'Logistica', ''),
 (3, 'Recursos Humanos', ''),
 (4, 'Operaciones', ''),
 (5, 'Planeamiento', '');
 
-CREATE TABLE MODULO
+create table modulo
 (
-ID_MODULO INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-NOMBRE VARCHAR(35) NOT NULL,
-ICONO VARCHAR(35),
-ESTADO BOOLEAN NOT NULL,
-URL VARCHAR(45)
+id_modulo int not null primary key auto_increment,
+nombre varchar(35) not null,
+icono varchar(35),
+estado boolean not null,
+url varchar(45)
 );
-INSERT INTO MODULO
-VALUES
-(1, 'Empleado', '', 1, 'empleado'),
-(2, 'Contrato', '', 1, 'contrato'),
-(3, 'Contribuyente', '', 1, 'contribuyente'),
-(4, 'Oficina', '', 1, 'oficina'),
-(5, 'Servicio', '', 1, 'servicio'),
-(6, 'Usuario', '', 1, 'usuario');
+insert into modulo
+values
+(1, 'empleado', '', 1, 'empleado'),
+(2, 'contrato', '', 1, 'contrato'),
+(3, 'contribuyente', '', 1, 'contribuyente'),
+(4, 'oficina', '', 1, 'oficina'),
+(5, 'servicio', '', 1, 'servicio'),
+(6, 'usuario', '', 1, 'usuario');
 
-CREATE TABLE ROL_MODULO
+create table rol_modulo
 (
-ID_ROL_MODULO INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-ID_ROL INT NOT NULL,
-ID_MODULO INT NOT NULL,
-CONSTRAINT FK_ID_ROL FOREIGN KEY(ID_ROL)
-REFERENCES ROL(ID_ROL) ON DELETE CASCADE,
-CONSTRAINT FK_ID_MODULO FOREIGN KEY(ID_MODULO)
-REFERENCES MODULO(ID_MODULO) ON DELETE CASCADE
+id_rol_modulo int not null primary key auto_increment,
+id_rol int not null,
+id_modulo int not null,
+constraint fk_id_rol foreign key(id_rol)
+references rol(id_rol) on delete cascade,
+constraint fk_id_modulo foreign key(id_modulo)
+references modulo(id_modulo) on delete cascade
 );
-INSERT INTO ROL_MODULO
-VALUES
-/*Administrador*/
+insert into rol_modulo
+values
+/*administrador*/
 (1, 1, 1),
 (2, 1, 2),
 (3, 1, 3),
 (4, 1, 4),
 (5, 1, 5),
 (6, 1, 6),
-/*Logistica*/
+/*logistica*/
 (7, 2, 1),
 (8, 2, 2),
-/*Recursos Humanos*/
+/*recursos humanos*/
 (9, 3, 3),
 (10, 3, 4),
-/*Operaciones*/
+/*operaciones*/
 (11, 4, 5),
 (12, 4, 6),
-/*Planeamiento*/
+/*planeamiento*/
 (13, 5, 3),
 (14, 5, 4),
 (15, 5, 5),
 (16, 5, 6);
 
-CREATE TABLE SERVICIO
+create table servicio
 (
-ID_SERVICIO INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-NOMBRE VARCHAR(50) NOT NULL,
-DESCRIPCION VARCHAR(200) NOT NULL,
-TARIFA DOUBLE NOT NULL,
-RUBRO VARCHAR(50) NOT NULL
+id_servicio int not null primary key auto_increment,
+nombre varchar(50) not null,
+descripcion varchar(200) not null,
+tarifa double not null,
+rubro varchar(50) not null
 );
 
-CREATE TABLE PERSONA_NATURAL
+create table persona_natural
 (
-ID_PERSONA_NATURAL INT NOT NULL PRIMARY KEY,
-DNI INT(8) NOT NULL UNIQUE,
-NOMBRE VARCHAR(25) NOT NULL,
-APELLIDO_PA VARCHAR(25) NOT NULL,
-APELLIDO_MA VARCHAR(25) NOT NULL,
-FECHA_NACIMIENTO VARCHAR(20) NOT NULL,
-SEXO VARCHAR(1) NOT NULL,
-PROFESION VARCHAR(45) NOT NULL,
-ESTADO BOOLEAN NOT NULL
+id_persona_natural int not null primary key,
+dni int(8) not null unique,
+nombre varchar(25) not null,
+apellido_pa varchar(25) not null,
+apellido_ma varchar(25) not null,
+fecha_nacimiento varchar(20) not null,
+sexo varchar(1) not null,
+profesion varchar(45) not null,
+estado boolean not null
 );
 
-CREATE TABLE PERSONA_JURIDICO
+create table persona_juridico
 (
-ID_PERSONA_JURIDICO INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-RUC INT(15) NOT NULL UNIQUE,
-ID_PERSONA_NATURAL INT NOT NULL,
-RAZON_SOCIAL VARCHAR(50) NOT NULL,
-DESCRIPCION VARCHAR(500) NOT NULL,
-FECHA_CREACION VARCHAR(10) NOT NULL,
-FECHA_MODIFICACION VARCHAR(10),
-ESTADO BOOLEAN,
+id_persona_juridico int not null primary key auto_increment,
+ruc int(15) not null unique,
+id_persona_natural int not null,
+razon_social varchar(50) not null,
+descripcion varchar(500) not null,
+fecha_creacion varchar(10) not null,
+fecha_modificacion varchar(10),
+estado boolean,
 
-CONSTRAINT FK_ID_PERSONA_NATURAL FOREIGN KEY(ID_PERSONA_NATURAL)
-REFERENCES PERSONA_NATURAL(ID_PERSONA_NATURAL)
+constraint fk_id_persona_natural foreign key(id_persona_natural)
+references persona_natural(id_persona_natural)
 );
 
-CREATE TABLE TIPO_IDENTIFICACION
+create table tipo_identificacion
 (
-ID_TIPO_IDENTIFICACION INT NOT NULL PRIMARY KEY,
-NOMBRE VARCHAR(15) NOT NULL
+id_tipo_identificacion int not null primary key,
+nombre varchar(15) not null
 );
 
-CREATE TABLE IDENTIFICACION_DNI
+create table identificacion_dni
 (
-ID_PERSONA_NATURAL INT NOT NULL,
-ID_TIPO_IDENTIFICACION INT NOT NULL PRIMARY KEY,
-CONSTRAINT FK_ID_PERSONA_NATURAL_DNI FOREIGN KEY(ID_PERSONA_NATURAL)
-REFERENCES PERSONA_NATURAL(ID_PERSONA_NATURAL),
-CONSTRAINT FK_ID_TIPO_IDENTIFICACION_DNI FOREIGN KEY(ID_TIPO_IDENTIFICACION)
-REFERENCES TIPO_IDENTIFICACION(ID_TIPO_IDENTIFICACION)
+id_persona_natural int not null,
+id_tipo_identificacion int not null primary key,
+constraint fk_id_persona_natural_dni foreign key(id_persona_natural)
+references persona_natural(id_persona_natural),
+constraint fk_id_tipo_identificacion_dni foreign key(id_tipo_identificacion)
+references tipo_identificacion(id_tipo_identificacion)
 );
 
-CREATE TABLE IDENTIFICACION_RUC
+create table identificacion_ruc
 (
-ID_PERSONA_JURIDICO INT NOT NULL,
-ID_TIPO_IDENTIFICACION INT NOT NULL PRIMARY KEY,
-CONSTRAINT FK_ID_PERSONA_JURIDICO_RUC FOREIGN KEY(ID_PERSONA_JURIDICO)
-REFERENCES PERSONA_JURIDICO(ID_PERSONA_JURIDICO),
-CONSTRAINT FK_ID_TIPO_IDENTIFICACION_RUC FOREIGN KEY(ID_TIPO_IDENTIFICACION)
-REFERENCES TIPO_IDENTIFICACION(ID_TIPO_IDENTIFICACION)
+id_persona_juridico int not null,
+id_tipo_identificacion int not null primary key,
+constraint fk_id_persona_juridico_ruc foreign key(id_persona_juridico)
+references persona_juridico(id_persona_juridico),
+constraint fk_id_tipo_identificacion_ruc foreign key(id_tipo_identificacion)
+references tipo_identificacion(id_tipo_identificacion)
 );
 
-CREATE TABLE CONTRIBUYENTE 
+create table contribuyente 
 (
-ID_CONTRIBUYENTE INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-ID_TIPO_IDENTIFICACION INT NOT NULL,
-NUMERO_TELEFONICO INT(9),
-DIRECCION VARCHAR(50) NOT NULL,
-REFERENCIA VARCHAR(50),
-ESTADO BOOLEAN,
+id_contribuyente int not null primary key auto_increment,
+id_tipo_identificacion int not null,
+numero_telefonico int(9),
+direccion varchar(50) not null,
+referencia varchar(50),
+estado boolean,
 
-CONSTRAINT FK_TIPO_IDENTIFICACION FOREIGN KEY(ID_TIPO_IDENTIFICACION)
-REFERENCES TIPO_IDENTIFICACION(ID_TIPO_IDENTIFICACION)
+constraint fk_tipo_identificacion foreign key(id_tipo_identificacion)
+references tipo_identificacion(id_tipo_identificacion)
 );
 
-CREATE TABLE ESTADO_CONTRATO
+create table estado_contrato
 (
-ID_ESTADO_CONTRATO INT NOT NULL PRIMARY KEY,
-NOMBRE VARCHAR(45) NOT NULL
+id_estado_contrato int not null primary key,
+nombre varchar(45) not null
 );
 
-CREATE TABLE CONTRATO
+create table contrato
 (
-ID_CONTRATO INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-COD INT(4) NOT NULL UNIQUE,
-NOMBRE VARCHAR(50) NOT NULL,
-DESCRIPCION VARCHAR(100) NOT NULL,
-IMPUESTO DOUBLE NOT NULL,
-ID_SERVICIO INT NOT NULL,
-ID_ESTADO_CONTRATO INT NOT NULL,
+id_contrato int not null primary key auto_increment,
+cod int(4) not null unique,
+nombre varchar(50) not null,
+descripcion varchar(100) not null,
+impuesto double not null,
+id_servicio int not null,
+id_estado_contrato int not null,
 
-CONSTRAINT FK_ID_SERVICIO FOREIGN KEY(ID_SERVICIO)
-REFERENCES SERVICIO(ID_SERVICIO),
-CONSTRAINT FK_ID_ESTADO_CONTRATO FOREIGN KEY(ID_ESTADO_CONTRATO)
-REFERENCES ESTADO_CONTRATO(ID_ESTADO_CONTRATO)
+constraint fk_id_servicio foreign key(id_servicio)
+references servicio(id_servicio),
+constraint fk_id_estado_contrato foreign key(id_estado_contrato)
+references estado_contrato(id_estado_contrato)
 );
 
 
-/*CREATE TABLE USERS
+/*create table users
 (
-ID INT NOT NULL PRIMARY KEY,
-CUENTA VARCHAR(12) NOT NULL,
-EMAIL VARCHAR(45) NOT NULL,
-EMAIL_VERIFIED_AT timestamp,
-PASSWORD VARCHAR(12) NOT NULL,
-ESTADO BOOLEAN,
-ID_EMPLEADO INT NOT NULL,
-ID_ROL INT NOT NULL,
-REMEMBER_TOKEN ----
-CONSTRAINT FK_ID_USUARIO FOREIGN KEY(ID_USUARIO)
-REFERENCES EMPLEADO(ID_EMPLEADO),
-CONSTRAINT FK_ID_ROL_USUARIO FOREIGN KEY(ID_ROL)
-REFERENCES ROL(ID_ROL)
+id int not null primary key,
+cuenta varchar(12) not null,
+email varchar(45) not null,
+email_verified_at timestamp,
+password varchar(12) not null,
+estado boolean,
+id_empleado int not null,
+id_rol int not null,
+remember_token ----
+constraint fk_id_usuario foreign key(id_usuario)
+references empleado(id_empleado),
+constraint fk_id_rol_usuario foreign key(id_rol)
+references rol(id_rol)
 );*/
-INSERT INTO users
-VALUES
+insert into users
+values
 (1, 'admin', 'admin@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 1, 1, null, current_date(), current_date()),
 (2, 'admin2', 'admin2@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 2, 2, null, current_date(), current_date()),
 (3, 'admin3', 'admin3@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 3, 3, null, current_date(), current_date()),
