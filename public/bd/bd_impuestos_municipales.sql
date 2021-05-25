@@ -1,5 +1,6 @@
-CREATE DATABASE BD_IMPUESTOS_MUNICIPALES;
-USE BD_IMPUESTOS_MUNICIPALES;
+CREATE DATABASE bd_impuestos_municipales;
+USE bd_impuestos_municipales;
+/*probando cambios*/
 
 CREATE TABLE OFICINA
 (
@@ -201,7 +202,7 @@ REFERENCES EMPLEADO(ID_EMPLEADO),
 CONSTRAINT FK_ID_ROL_USUARIO FOREIGN KEY(ID_ROL)
 REFERENCES ROL(ID_ROL)
 );*/
-INSERT INTO USERS
+INSERT INTO users
 VALUES
 (1, 'admin', 'admin@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 1, 1, null, current_date(), current_date()),
 (2, 'admin2', 'admin2@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 2, 2, null, current_date(), current_date()),
