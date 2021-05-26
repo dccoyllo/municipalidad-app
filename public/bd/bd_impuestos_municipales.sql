@@ -132,8 +132,9 @@ nombre varchar(15) not null
 
 create table identificacion_dni
 (
+id_identificacion_dni int not null primary key auto_increment,
 id_persona_natural int not null,
-id_tipo_identificacion int not null primary key,
+id_tipo_identificacion int not null,
 constraint fk_id_persona_natural_dni foreign key(id_persona_natural)
 references persona_natural(id_persona_natural),
 constraint fk_id_tipo_identificacion_dni foreign key(id_tipo_identificacion)
@@ -142,8 +143,9 @@ references tipo_identificacion(id_tipo_identificacion)
 
 create table identificacion_ruc
 (
+id_identificacion_ruc int not null primary key auto_increment,
 id_persona_juridico int not null,
-id_tipo_identificacion int not null primary key,
+id_tipo_identificacion int not null,
 constraint fk_id_persona_juridico_ruc foreign key(id_persona_juridico)
 references persona_juridico(id_persona_juridico),
 constraint fk_id_tipo_identificacion_ruc foreign key(id_tipo_identificacion)
