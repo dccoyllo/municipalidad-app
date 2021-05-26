@@ -5,8 +5,10 @@ use bd_impuestos_municipales;
 create table oficina
 (
 id_oficina int not null primary key auto_increment,
-cod int not null,
-nombre varchar(50) not null
+cod int not null unique,
+nombre varchar(50) not null,
+created_at timestamp,
+updated_at timestamp
 );
 
 create table empleado
@@ -16,8 +18,10 @@ dni int(8) not null unique,
 nombre varchar(25) not null,
 apellido varchar(35) not null,
 cargo varchar(45) not null,
-
 id_oficina int not null,
+
+created_at timestamp,
+updated_at timestamp,
 constraint fk_id_oficina foreign key (id_oficina)
 references oficina(id_oficina)
 );
@@ -93,7 +97,10 @@ id_servicio int not null primary key auto_increment,
 nombre varchar(50) not null,
 descripcion varchar(200) not null,
 tarifa double not null,
-rubro varchar(50) not null
+rubro varchar(50) not null,
+
+created_at timestamp,
+updated_at timestamp
 );
 
 create table persona_natural
@@ -106,7 +113,10 @@ apellido_ma varchar(25) not null,
 fecha_nacimiento varchar(20) not null,
 sexo varchar(1) not null,
 profesion varchar(45) not null,
-estado boolean not null
+estado boolean not null,
+
+created_at timestamp,
+updated_at timestamp
 );
 
 create table persona_juridico
@@ -116,10 +126,10 @@ ruc int(15) not null unique,
 id_persona_natural int not null,
 razon_social varchar(50) not null,
 descripcion varchar(500) not null,
-fecha_creacion varchar(10) not null,
-fecha_modificacion varchar(10),
 estado boolean,
 
+created_at timestamp,
+updated_at timestamp,
 constraint fk_id_persona_natural foreign key(id_persona_natural)
 references persona_natural(id_persona_natural)
 );
@@ -135,6 +145,9 @@ create table identificacion_dni
 id_identificacion_dni int not null primary key auto_increment,
 id_persona_natural int not null,
 id_tipo_identificacion int not null,
+
+created_at timestamp,
+updated_at timestamp,
 constraint fk_id_persona_natural_dni foreign key(id_persona_natural)
 references persona_natural(id_persona_natural),
 constraint fk_id_tipo_identificacion_dni foreign key(id_tipo_identificacion)
@@ -146,6 +159,9 @@ create table identificacion_ruc
 id_identificacion_ruc int not null primary key auto_increment,
 id_persona_juridico int not null,
 id_tipo_identificacion int not null,
+
+created_at timestamp,
+updated_at timestamp,
 constraint fk_id_persona_juridico_ruc foreign key(id_persona_juridico)
 references persona_juridico(id_persona_juridico),
 constraint fk_id_tipo_identificacion_ruc foreign key(id_tipo_identificacion)
@@ -161,6 +177,8 @@ direccion varchar(50) not null,
 referencia varchar(50),
 estado boolean,
 
+created_at timestamp,
+updated_at timestamp,
 constraint fk_tipo_identificacion foreign key(id_tipo_identificacion)
 references tipo_identificacion(id_tipo_identificacion)
 );
@@ -181,6 +199,8 @@ impuesto double not null,
 id_servicio int not null,
 id_estado_contrato int not null,
 
+created_at timestamp,
+updated_at timestamp,
 constraint fk_id_servicio foreign key(id_servicio)
 references servicio(id_servicio),
 constraint fk_id_estado_contrato foreign key(id_estado_contrato)
@@ -211,3 +231,4 @@ values
 (3, 'admin3', 'admin3@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 3, 3, null, current_date(), current_date()),
 (4, 'admin4', 'admin4@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 4, 4, null, current_date(), current_date()),
 (5, 'admin5', 'admin5@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 5, 5, null, current_date(), current_date());
+
