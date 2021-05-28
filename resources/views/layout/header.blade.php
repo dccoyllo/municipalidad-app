@@ -10,6 +10,7 @@
         <!--  notification start -->
         <ul class="nav top-menu">
           <!-- notification dropdown start-->
+          
           <li id="header_notification_bar" class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
               <i class="fa fa-bell-o"></i>
@@ -54,11 +55,13 @@
             </ul>
           </li>
           <!-- notification dropdown end -->
+
         </ul>
         <!--  notification end -->
       </div>
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
+          {{-- <li> <p class="logout">{{auth()->user()->estado}}</p></li> --}}
           <li><a class="logout" href={{ route('logout') }}><i class="fa fa-sign-out"></i> Cerrar Sesion</a></li>
         </ul>
       </div>

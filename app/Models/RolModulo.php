@@ -13,6 +13,8 @@ class RolModulo extends Model
 
     public function rol()
     {
+        // return $this->belongsToMany('App\Models\Rol', 'rol');
+        // hasMany relaciona la tabla principal
         return $this->hasMany('App\Models\Rol', 'id_rol');
     }
     // public function modulo()
@@ -22,7 +24,7 @@ class RolModulo extends Model
     public function modulo()
     {
         // return $this->hasMany('App\Models\Modulo');
-        // Si el id tienen diferentes nombres
-        return $this->hasMany('App\Models\Modulo', 'id_modulo');
+        // Si el id tienen diferentes nombres belongsTo referencia a los id de las tablas hijos
+        return $this->belongsTo('App\Models\Modulo', 'id_modulo');
     }
 }

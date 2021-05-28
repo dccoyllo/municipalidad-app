@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserEmpleado;
+use App\Models\UserRol;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
@@ -15,7 +17,9 @@ class UsuarioController extends Controller
     public function index()
     {
         $usuarios = User::all();
-        return view('modulo.usuario.usuario', compact('usuarios'));
+        $users_empleado = UserEmpleado::all();
+        $users_rol = UserRol::all();
+        return view('modulo.usuario.usuario', compact('usuarios', 'users_empleado', 'users_rol'));
     }
 
     /**

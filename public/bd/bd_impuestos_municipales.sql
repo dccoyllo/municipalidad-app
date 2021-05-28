@@ -63,9 +63,9 @@ id_rol_modulo int not null primary key auto_increment,
 id_rol int not null,
 id_modulo int not null,
 constraint fk_id_rol foreign key(id_rol)
-references rol(id_rol) on delete cascade,
+references rol(id_rol),
 constraint fk_id_modulo foreign key(id_modulo)
-references modulo(id_modulo) on delete cascade
+references modulo(id_modulo)
 );
 insert into rol_modulo
 values
@@ -217,18 +217,55 @@ email_verified_at timestamp,
 password varchar(12) not null,
 estado boolean,
 id_empleado int not null,
-id_rol int not null,
 remember_token ----
 constraint fk_id_usuario foreign key(id_usuario)
 references empleado(id_empleado),
-constraint fk_id_rol_usuario foreign key(id_rol)
-references rol(id_rol)
 );*/
+
+
 insert into users
 values
-(1, 'admin', 'admin@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 1, 1, null, current_date(), current_date()),
-(2, 'admin2', 'admin2@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 2, 2, null, current_date(), current_date()),
-(3, 'admin3', 'admin3@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 3, 3, null, current_date(), current_date()),
-(4, 'admin4', 'admin4@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 4, 4, null, current_date(), current_date()),
-(5, 'admin5', 'admin5@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, 5, 5, null, current_date(), current_date());
+(1, 'admin', 'admin@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, null, current_date(), current_date()),
+(2, 'admin2', 'admin2@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, null, current_date(), current_date()),
+(3, 'admin3', 'admin3@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, null, current_date(), current_date()),
+(4, 'admin4', 'admin4@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, null, current_date(), current_date());
+create table users_empleado
+(
+id int not null primary key auto_increment,
+user_id bigint unsigned not null,
+empleado_id int not null,
+created_at timestamp,
+updated_at timestamp,
+constraint fk_user_id_empleado foreign key(user_id)
+references users(id),
+constraint fk_empleado_id foreign key(empleado_id)
+references empleado(id_empleado)
+);
+insert into users_empleado
+values
+(1, 1, 1, current_date(), current_date()),
+(2, 2, 2, current_date(), current_date()),
+(3, 3, 3, current_date(), current_date()),
+(4, 4, 4, current_date(), current_date());
+
+create table users_rol
+(
+id int not null primary key auto_increment,
+user_id bigint unsigned not null,
+rol_id int not null,
+
+created_at timestamp,
+updated_at timestamp,
+constraint fk_user_id_rol foreign key(user_id)
+references users(id) on delete cascade,
+constraint fk_rol_id foreign key(rol_id)
+references rol(id_rol) on delete cascade
+);
+insert into users_rol
+values
+(1, 1, 1, current_date(), current_date()),
+(2, 2, 2, current_date(), current_date()),
+(3, 3, 3, current_date(), current_date()),
+(4, 4, 4, current_date(), current_date()),
+(5, 5, 5, current_date(), current_date());
 

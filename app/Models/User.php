@@ -14,18 +14,16 @@ class User extends Authenticatable
         'email',
     ];
     protected $hidden = [
-        'id_rol',
-        'id_empleado',
         'password',
         'remember_token',
     ];
-    public function rol()
-    {
-        return $this->belongsTo('App\Models\Rol', 'id_rol');
-    }
-    public function empleado()
-    {
-        return $this->belongsTo('App\Models\Empleado', 'id_empleado');
-    }
+    // public function rol()
+    // {
+    //     return $this->belongsTo('App\Models\Rol', 'id_rol');
+    // }
+    // public function empleado()
+    // {
+    //     return $this->belongsTo('App\Models\Empleado', 'id_empleado');
+    // }
 
 }
