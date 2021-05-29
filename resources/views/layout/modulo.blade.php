@@ -3,7 +3,7 @@
     <div id="sidebar" class="nav-collapse ">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
-            <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
+            <p class="centered"><a href="profile.html"><img src={{ url('img/ui-sam.jpg') }} class="img-circle" width="80"></a></p>
 
         {{-- @foreach (session('user_empleado') as $item)
             @if ($item->user == auth()->user())
@@ -42,7 +42,7 @@
                     @if ($rol_modulo->id_rol == $user_rol->rol->id_rol)
                         @foreach ($rol_modulo->modulo()->get() as $modulo)
                             <li>
-                                <a href={{$modulo->url}}>
+                                <a href="/{{$modulo->url}}"">
                                     <i class="fa {{$modulo->icon}}"></i>
                                     <span>{{$modulo->nombre}}</span>
                                 </a>

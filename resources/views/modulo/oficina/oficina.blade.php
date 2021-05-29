@@ -9,79 +9,20 @@
                 <div class="col-lg-12">
                     {{-- <p>{{$oficinas}}</p> --}}
 
-                    <div class="content-panel">
+                    {{-- <div class="showback">
+                      <h4><i class="fa fa-angle-right"></i> Basic Buttons</h4>
+                      <button type="button" class="btn btn-default">Default</button>
+                      <button type="button" class="btn btn-primary">Primary</button>
+                      <button type="button" class="btn btn-success">Success</button>
+                      <button type="button" class="btn btn-info">Info</button>
+                      <button type="button" class="btn btn-warning">Warning</button>
+                      <button type="button" class="btn btn-danger">Danger</button>
+                    </div> --}}
+                    <div class="showback">
+                      <h4><i class="fa fa-angle-right"></i> Oficinas</h4>
+                      <a href="/oficina/create" class="btn btn-primary">Crear</a>
+
                         <table class="table table-striped table-advance table-hover">
-                          <h4><i class="fa fa-angle-right"></i> Oficinas</h4>
-          
-          
-                          <!-- boton para agregar Contrato -->
-                          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#agregar_nuevo_contrato">Agregar Contratos</button>
-                          <!-- boton para agregar Contrato -->
-          
-          
-                          <!-- Modal para agregar Contrato -->
-                          <div class="modal fade" id="agregar_nuevo_contrato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                   <h5 class="modal-title" id="exampleModalLabel">Agregar contrato</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-          
-          
-                                <div class="modal-body">
-          
-                                  <div class="form-group">
-                                    <label for="codigo">Codigo</label>
-                                    <input type="text" class="form-control" id="agregar_codigo_contrato" placeholder="Ingrese el codigo">
-                                  </div>
-          
-                                  <div class="form-group">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" id="agregar_nombre_contrato" placeholder="Ingrese el nombre">
-                                  </div>
-          
-                                  <div class="form-group">
-                                    <label for="descripcion">Descripcion</label>
-                                    <input type="text" class="form-control" id="agregar_descripcion_contrato" placeholder="Ingrese la descripcion">
-                                  </div>
-          
-                                  <div class="form-group">
-                                    <label for="impuesto">Impuesto</label>
-                                    <input type="text" class="form-control" id="agregar_impuesto_contrato" placeholder="Ingrese el impuesto">
-                                  </div>
-          
-                                  <div class="form-group">
-                                    <label for="idServicio">ID Servicio</label>
-                                    <select class="form-control" id="agregar_idservicio_contrato">
-                                      <option>Activo</option>
-                                      <option>Desactivo</option>
-                                      <option>Fuera de linea</option>
-                                    </select>
-                                  </div>
-          
-                                  <div class="form-group">
-                                    <label for="idContrato">ID Estado del contrato</label>
-                                    <select class="form-control" id="agregar_idcontrato_contrato">
-                                      <option>Supuestamente se jala</option>
-                                      <option>con bd</option>
-                                    </select>
-                                  </div>
-          
-                                </div>
-          
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                  <button type="button" class="btn btn-primary" id="agregar_contrato">Guardar</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- Modal para agregar Contrato -->
-          
-          
           
                           <hr>
                           <thead>
@@ -101,94 +42,27 @@
 
                             <td>{{$item->nombre}}</td>
                             <td>
-                                <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modificar_contrato"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar_contrato"><i class="fa fa-trash-o "></i></button>
-
-                                <!-- Modal para modificar Contrato -->
-                                <div class="modal fade" id="modificar_contrato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modificar contrato</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-
-
-                                        <div class="modal-body">
-
-                                        <div class="form-group">
-                                            <label for="codigo">Codigo</label>
-                                            <input type="text" class="form-control" id="modificar_codigo_contrato" placeholder="Ingrese el codigo">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="nombre">Nombre</label>
-                                            <input type="text" class="form-control" id="modificar_nombre_contrato" placeholder="Ingrese el nombre">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="descripcion">Descripcion</label>
-                                            <input type="text" class="form-control" id="moficicar_descripcion_contrato" placeholder="Ingrese la descripcion">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="impuesto">Impuesto</label>
-                                            <input type="text" class="form-control" id="modificar_impuesto_contrato" placeholder="Ingrese el impuesto">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="idServicio">ID Servicio</label>
-                                            <select class="form-control" id="modificar_idservicio_contrato">
-                                            <option>Activo</option>
-                                            <option>Desactivo</option>
-                                            <option>Fuera de linea</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="idContrato">ID Estado del contrato</label>
-                                            <select class="form-control" id="modificar_idcontrato_contrato">
-                                            <option>Supuestamente se jala</option>
-                                            <option>con bd</option>
-                                            </select>
-                                        </div>
-
-                                        </div>
-
-                                        <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary" id="modificar_contrato">Guardar</button>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <!-- Modal para modificar Contrato -->
-
+                                <a class="btn btn-primary btn-xs" href="/oficina/{{$item->id_oficina}}"><i class="fa fa-pencil"></i></a>
+                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar-{{$item->id_oficina}}"><i class="fa fa-trash-o "></i></button>
                                 <!-- Modal para eliminar Contrato -->
-                                <div class="modal fade" id="eliminar_contrato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                                <div class="modal fade" id="eliminar-{{$item->id_oficina}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
                                     <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Eliminar</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h4 class="modal-title" id="myModalLabel">Eliminar</h4>
+                                          </div>
+
+                                            <div class="modal-body">
+                                            Deseas eliminar: <strong>{{$item->nombre}}</strong>
+                                            </div>
+
+                                            <form class="modal-footer" method="POST" action="{{ url("oficina/{$item->id_oficina}") }}">
+                                              @csrf
+                                              @method('DELETE')
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                              <button type="submit" class="btn btn-primary">Aceptar</button>
+                                            </form>
                                         </div>
-
-
-                                        <div class="modal-body">
-
-                                        Deseas eliminar a este Contrato?
-
-                                        </div>
-
-                                        <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary" id="eliminar_contrato">Aceptar</button>
-                                        </div>
-                                    </div>
                                     </div>
                                 </div>
                                 <!-- Modal para eliminar Contrato -->
@@ -200,6 +74,21 @@
                         </table>
                       </div>
                       <!-- /content-panel -->
+                </div>
+                <div class="col-lg-12">
+                  @if (session('estado_oficina'))
+                          @if (session('estado_oficina') == 1)
+                          <div class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <strong>Success!</strong> Se ha eliminado correctamente.
+                          </div>
+                          @else
+                          <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <strong>Error!</strong> No se ha podido eliminar.
+                          </div>
+                          @endif
+                      @endif
                 </div>
             </div>
         </section>

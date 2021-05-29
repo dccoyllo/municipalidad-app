@@ -266,6 +266,5 @@ values
 (1, 1, 1, current_date(), current_date()),
 (2, 2, 2, current_date(), current_date()),
 (3, 3, 3, current_date(), current_date()),
-(4, 4, 4, current_date(), current_date()),
-(5, 5, 5, current_date(), current_date());
+(4, 4, 4, current_date(), current_date());
 

@@ -25,7 +25,7 @@ class OficinaController extends Controller
      */
     public function create()
     {
-        //
+        return view('modulo.oficina.create');
     }
 
     /**
@@ -36,7 +36,11 @@ class OficinaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $oficina = new Oficina();
+        $oficina->cod = $request->cod;
+        $oficina->nombre = $request->nombre;
+        $oficina->save();
+        return redirect()->intended('/oficina/create')->with('estado', 1);
     }
 
     /**
@@ -81,6 +85,8 @@ class OficinaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $oficina = Oficina::find($id);
+        $oficina->delete();
+        return redirect()->intended('oficina')->with('estado_oficina', 1);
     }
 }
