@@ -5,7 +5,7 @@ use bd_impuestos_municipales;
 create table oficina
 (
 id_oficina int not null primary key auto_increment,
-cod int not null unique,
+cod varchar(10) not null unique,
 nombre varchar(50) not null,
 created_at timestamp,
 updated_at timestamp

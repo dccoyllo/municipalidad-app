@@ -8,23 +8,23 @@
             <div class="row mt">
                 <div class="col-sm-12 col-lg-5">
                     {{-- <p>{{$oficinas}}</p> --}}
-                    <form class="modal-content" method="POST" action="/oficina">
-                      @method('POST')
+                    <form class="modal-content" method="POST" action="/oficina/{{$oficina->id_oficina}}">
+                      @method('PUT')
                       @csrf
                       <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Crear Oficina</h4>
+                        <h4 class="modal-title" id="myModalLabel">Editar Oficina</h4>
                       </div>
 
                       <div class="modal-body">
 
                         <div class="form-group">
                           <label for="codigo">Codigo</label>
-                          <input type="number" pattern="[1-9]" class="form-control" name="cod">
+                          <input type="text" class="form-control" name="cod" value={{$oficina->cod}}>
                         </div>
 
                         <div class="form-group">
                           <label for="nombre">Nombre</label>
-                          <input type="text" class="form-control" name="nombre">
+                          <input type="text" class="form-control" name="nombre" value="{{$oficina->nombre}}">
                         </div>
 
                       </div>
@@ -44,12 +44,12 @@
                           @if (session('estado') == 1)
                           <div class="alert alert-success alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <strong>Success!</strong> Se ha creado correctamente.
+                            <strong>Success!</strong> Se ha cambiado correctamente.
                           </div>
                           @else
                           <div class="alert alert-danger alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <strong>Error!</strong> No se ha podido crear.
+                            <strong>Error!</strong> No se ha podido cambiar.
                           </div>
                           @endif
                       @endif

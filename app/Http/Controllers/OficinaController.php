@@ -40,7 +40,8 @@ class OficinaController extends Controller
         $oficina->cod = $request->cod;
         $oficina->nombre = $request->nombre;
         $oficina->save();
-        return redirect()->intended('/oficina/create')->with('estado', 1);
+        // return redirect()->intended('/oficina/create')->with('estado', 1);
+        return redirect()->intended('/oficina')->with('estado-create', 1);
     }
 
     /**
@@ -62,7 +63,8 @@ class OficinaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $oficina = Oficina::find($id);
+        return view('modulo.oficina.edit', compact('oficina'));
     }
 
     /**
@@ -74,7 +76,12 @@ class OficinaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $oficina = Oficina::find($id);
+        $oficina->cod = $request->cod;
+        $oficina->nombre = $request->nombre;
+        $oficina->save();
+        // return redirect()->action([OficinaController::class, 'edit'], $id)->with('estado', 1);
+        return redirect()->action([OficinaController::class, 'index'])->with('estado-update', 1);
     }
 
     /**
