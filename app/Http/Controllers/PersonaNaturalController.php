@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ContribuyenteDNI;
-use App\Models\ContribuyenteRUC;
+use App\Models\PersonaNatural;
 use Illuminate\Http\Request;
 
-class ContribuyenteController extends Controller
+class PersonaNaturalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,8 @@ class ContribuyenteController extends Controller
      */
     public function index()
     {
-        $contribuyenteDNI = ContribuyenteDNI::all();
-        $contribuyenteRUC = ContribuyenteRUC::all();
-        return view('modulo.contribuyente.contribuyente', compact('contribuyenteDNI', 'contribuyenteRUC'));
+        $pnatural = PersonaNatural::all();
+        return view('modulo.cliente.persona', compact('pnatural'));
     }
 
     /**

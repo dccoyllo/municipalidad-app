@@ -10,4 +10,9 @@ class Modulo extends Model
     use HasFactory;
     protected $table = 'modulo';
     protected $primaryKey = 'id_modulo';
+
+    public function submodulo()
+    {
+        return $this->hasMany('App\Models\SubModulo', 'id_modulo');
+    }
 }

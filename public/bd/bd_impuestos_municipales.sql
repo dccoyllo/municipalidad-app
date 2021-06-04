@@ -43,31 +43,53 @@ values
 create table modulo
 (
 id_modulo int not null primary key auto_increment,
-nombre varchar(35) not null,
-icono varchar(35),
-estado boolean not null,
-url varchar(45)
+nombre varchar(40) not null,
+icono varchar(25),
+estado boolean
 );
 insert into modulo
 values
-(1, 'empleado', '', 1, 'empleado'),
-(2, 'contrato', '', 1, 'contrato'),
-(3, 'contribuyente', '', 1, 'contribuyente'),
-(4, 'oficina', '', 1, 'oficina'),
-(5, 'servicio', '', 1, 'servicio'),
-(6, 'usuario', '', 1, 'usuario');
+(1, "Administración de trabajadores", "fa fa-", 1),
+(2, "Adminstración de usuarios y roles", "fa fa-", 1),
+(3, "Administración de Clientes", "fa fa-", 1),
+(4, "Administrar Contribuyente", "fa fa-", 1),
+(5, "Administrar Contratos", "fa fa-", 1),
+(6, "Administración de servicios", "fa fa-", 1);
 
-create table rol_modulo
+create table submodulo
 (
-id_rol_modulo int not null primary key auto_increment,
-id_rol int not null,
+id_submodulo int not null primary key auto_increment,
+nombre varchar(35) not null,
+icono varchar(35),
+estado boolean not null,
+url varchar(45),
 id_modulo int not null,
-constraint fk_id_rol foreign key(id_rol)
-references rol(id_rol),
-constraint fk_id_modulo foreign key(id_modulo)
+
+constraint fk_id_modulo_submodulo foreign key(id_modulo)
 references modulo(id_modulo)
 );
-insert into rol_modulo
+insert into submodulo
+values
+(1, 'empleado', 'fa', 1, 'empleado', 1),
+(2, 'contrato', 'fa', 1, 'contrato', 5),
+(3, 'contribuyente', 'fa', 1, 'contribuyente', 4),
+(4, 'oficina', 'fa', 1, 'oficina', 1),
+(5, 'servicio', 'fa', 1, 'servicio', 6),
+(6, 'usuario', 'fa', 1, 'usuario', 2),
+(7, 'Persona Natural', 'fa', 1, 'persona', 3),
+(8, 'Persona Juridica', 'fa', 1, 'empresa', 3);
+
+create table rol_submodulo
+(
+id_rol_submodulo int not null primary key auto_increment,
+id_rol int not null,
+id_submodulo int not null,
+constraint fk_id_rol foreign key(id_rol)
+references rol(id_rol),
+constraint fk_id_submodulo foreign key(id_submodulo)
+references submodulo(id_submodulo)
+);
+insert into rol_submodulo
 values
 /*administrador*/
 (1, 1, 1),
@@ -76,6 +98,8 @@ values
 (4, 1, 4),
 (5, 1, 5),
 (6, 1, 6),
+(17, 1, 7),
+(18, 1, 8),
 /*logistica*/
 (7, 2, 1),
 (8, 2, 2),
@@ -110,7 +134,7 @@ dni int(8) not null unique,
 nombre varchar(25) not null,
 apellido_pa varchar(25) not null,
 apellido_ma varchar(25) not null,
-fecha_nacimiento varchar(20) not null,
+fecha_nacimiento date not null,
 sexo varchar(1) not null,
 profesion varchar(45) not null,
 estado boolean not null,
@@ -139,48 +163,55 @@ create table tipo_identificacion
 id_tipo_identificacion int not null primary key,
 nombre varchar(15) not null
 );
-
-create table identificacion_dni
-(
-id_identificacion_dni int not null primary key auto_increment,
-id_persona_natural int not null,
-id_tipo_identificacion int not null,
-
-created_at timestamp,
-updated_at timestamp,
-constraint fk_id_persona_natural_dni foreign key(id_persona_natural)
-references persona_natural(id_persona_natural),
-constraint fk_id_tipo_identificacion_dni foreign key(id_tipo_identificacion)
-references tipo_identificacion(id_tipo_identificacion)
-);
-
-create table identificacion_ruc
-(
-id_identificacion_ruc int not null primary key auto_increment,
-id_persona_juridico int not null,
-id_tipo_identificacion int not null,
-
-created_at timestamp,
-updated_at timestamp,
-constraint fk_id_persona_juridico_ruc foreign key(id_persona_juridico)
-references persona_juridico(id_persona_juridico),
-constraint fk_id_tipo_identificacion_ruc foreign key(id_tipo_identificacion)
-references tipo_identificacion(id_tipo_identificacion)
-);
+insert into tipo_identificacion
+values
+(1, "DNI"),
+(2, "RUC");
 
 create table contribuyente 
 (
 id_contribuyente int not null primary key auto_increment,
-id_tipo_identificacion int not null,
 numero_telefonico int(9),
 direccion varchar(50) not null,
 referencia varchar(50),
 estado boolean,
 
 created_at timestamp,
+updated_at timestamp
+);
+
+create table contribuyente_dni
+(
+id_contribuyente_dni int not null primary key auto_increment,
+id_persona_natural int not null,
+id_tipo_identificacion int not null,
+id_contribuyente int not null,
+
+created_at timestamp,
 updated_at timestamp,
-constraint fk_tipo_identificacion foreign key(id_tipo_identificacion)
-references tipo_identificacion(id_tipo_identificacion)
+constraint fk_id_persona_natural_dni foreign key(id_persona_natural)
+references persona_natural(id_persona_natural),
+constraint fk_id_tipo_identificacion_dni foreign key(id_tipo_identificacion)
+references tipo_identificacion(id_tipo_identificacion),
+constraint fk_id_contribuyente_dni foreign key(id_contribuyente)
+references contribuyente(id_contribuyente)
+);
+
+create table contribuyente_ruc
+(
+id_contribuyente_ruc int not null primary key auto_increment,
+id_persona_juridico int not null,
+id_tipo_identificacion int not null,
+id_contribuyente int not null,
+
+created_at timestamp,
+updated_at timestamp,
+constraint fk_id_persona_juridico_ruc foreign key(id_persona_juridico)
+references persona_juridico(id_persona_juridico),
+constraint fk_id_tipo_identificacion_ruc foreign key(id_tipo_identificacion)
+references tipo_identificacion(id_tipo_identificacion),
+constraint fk_id_contribuyente_ruc foreign key(id_contribuyente)
+references contribuyente(id_contribuyente)
 );
 
 create table estado_contrato
@@ -188,6 +219,11 @@ create table estado_contrato
 id_estado_contrato int not null primary key,
 nombre varchar(45) not null
 );
+insert into estado_contrato
+values
+(1, "Pendiente"),
+(2, "En proceso"),
+(3, "Finalizado");
 
 create table contrato
 (
@@ -198,13 +234,16 @@ descripcion varchar(100) not null,
 impuesto double not null,
 id_servicio int not null,
 id_estado_contrato int not null,
+id_contribuyente int not null,
 
 created_at timestamp,
 updated_at timestamp,
 constraint fk_id_servicio foreign key(id_servicio)
 references servicio(id_servicio),
 constraint fk_id_estado_contrato foreign key(id_estado_contrato)
-references estado_contrato(id_estado_contrato)
+references estado_contrato(id_estado_contrato),
+constraint fk_id_contribuyente_contrato foreign key(id_contribuyente)
+references contribuyente(id_contribuyente)
 );
 
 
@@ -241,13 +280,13 @@ references users(id),
 constraint fk_empleado_id foreign key(empleado_id)
 references empleado(id_empleado)
 );
+
 insert into users_empleado
 values
 (1, 1, 1, current_date(), current_date()),
 (2, 2, 2, current_date(), current_date()),
 (3, 3, 3, current_date(), current_date()),
 (4, 4, 4, current_date(), current_date());
-
 create table users_rol
 (
 id int not null primary key auto_increment,

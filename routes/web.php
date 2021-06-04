@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\ContribuyenteController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ModuloController;
 use App\Http\Controllers\OficinaController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PersonaJuridicaController;
+use App\Http\Controllers\PersonaNaturalController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
@@ -22,5 +25,13 @@ Route::resource('oficina', OficinaController::class)->middleware('auth');
 Route::resource('empleado', EmpleadoController::class)->middleware('auth');
 Route::resource('usuario', UsuarioController::class)->middleware('auth');
 Route::resource('modulo', ModuloController::class)->middleware('auth');
+
+Route::resource('persona', PersonaNaturalController::class)->middleware('auth');
+Route::resource('empresa', PersonaJuridicaController::class)->middleware('auth');
+
+Route::resource('contribuyente', ContribuyenteController::class)->middleware('auth');
+
+
+
 
 

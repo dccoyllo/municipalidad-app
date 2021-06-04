@@ -17,13 +17,14 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-    // public function rol()
-    // {
-    //     return $this->belongsTo('App\Models\Rol', 'id_rol');
-    // }
-    // public function empleado()
-    // {
-    //     return $this->belongsTo('App\Models\Empleado', 'id_empleado');
-    // }
+    
+    public function UserRol()
+    {
+        return $this->hasOne('App\Models\UserRol', 'user_id', 'id');
+    }
+    public function UserEmpleado()
+    {
+        return $this->hasOne('App\Models\UserEmpleado', 'user_id', 'id');
+    }
 
 }

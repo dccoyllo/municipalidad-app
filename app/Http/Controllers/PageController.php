@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RolModulo;
-use App\Models\UserEmpleado;
-use App\Models\UserRol;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,9 +21,7 @@ class PageController extends Controller
         ]);
         $credentials = $request->only('cuenta', 'password');
         if (Auth::attempt($credentials)) {
-            $request->session()->put('user_empleado', UserEmpleado::all());
-            $request->session()->put('user_rol', UserRol::all());
-            $request->session()->put('rol_modulo', RolModulo::all());
+            
             $request->session()->regenerate();
 
             $usuario = User::find(Auth::user()->id);
