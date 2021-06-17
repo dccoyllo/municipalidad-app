@@ -35,11 +35,9 @@ descripcion varchar(100)
 );
 insert into rol
 values
-(1, 'Administrador', 'encargado de administrar todas las funciones del sistema'),
+(1, 'Administrador', ''),
 (2, 'Logistica', ''),
-(3, 'Recursos Humanos', ''),
-(4, 'Operaciones', ''),
-(5, 'Planeamiento', '');
+(3, 'Operaciones', '');
 
 create table modulo
 (
@@ -50,12 +48,12 @@ estado boolean
 );
 insert into modulo
 values
-(1, "Administración de trabajadores", "fa fa-", 1),
-(2, "Adminstración de usuarios y roles", "fa fa-", 1),
-(3, "Administración de Clientes", "fa fa-", 1),
-(4, "Administrar Contribuyente", "fa fa-", 1),
-(5, "Administrar Contratos", "fa fa-", 1),
-(6, "Administración de servicios", "fa fa-", 1);
+(1, "Administrar Trabajadores", "fa fa-address-card-o", 1),
+(2, "Adminstrar Usuarios", "fa fa-user", 1),
+(3, "Administrar Clientes", "fa fa-money", 1),
+(4, "Administrar Contribuyente", "fa fa-handshake-o", 1),
+(5, "Administrar Contratos", "fa fa-book", 1),
+(6, "Administrar Servicios", "fa fa-cc", 1);
 
 create table submodulo
 (
@@ -71,17 +69,17 @@ references modulo(id_modulo)
 );
 insert into submodulo
 values
-(1, 'empleado', 'fa', 1, 'empleado', 1),
-(2, 'todos los contrato', 'fa', 1, 'contrato', 5),
-(3, 'nuevo contrato', 'fa', 1, 'contrato/create', 5),
+(1, 'Empleados', 'fa', 1, 'empleado', 1),
+(2, 'Contratos', 'fa', 1, 'contrato', 5),
+(3, 'Crear contrato', 'fa', 1, 'contrato/create', 5),
 
-(4, 'contribuyente', 'fa', 1, 'contribuyente', 4),
-(5, 'nuevo contribuyente', 'fa', 1, 'contribuyente/create', 4),
-(6, 'oficina', 'fa', 1, 'oficina', 1),
-(7, 'servicio', 'fa', 1, 'servicio', 6),
-(8, 'usuario', 'fa', 1, 'usuario', 2),
-(9, 'Persona', 'fa', 1, 'persona', 3),
-(10, 'Empresa', 'fa', 1, 'empresa', 3);
+(4, 'Contribuyentes', 'fa', 1, 'contribuyente', 4),
+(5, 'Crear Contribuyente', 'fa', 1, 'contribuyente/create', 4),
+(6, 'Oficinas', 'fa', 1, 'oficina', 1),
+(7, 'Servicios', 'fa', 1, 'servicio', 6),
+(8, 'Usuarios', 'fa', 1, 'usuario', 2),
+(9, 'Personas', 'fa', 1, 'persona', 3),
+(10, 'Empresas', 'fa', 1, 'empresa', 3);
 
 create table rol_submodulo
 (
@@ -102,22 +100,21 @@ values
 (4, 1, 4),
 (5, 1, 5),
 (6, 1, 6),
-(17, 1, 7),
-(18, 1, 8),
+(7, 1, 7),
+(8, 1, 8),
+(9, 1, 9),
+(10, 1, 10),
+
 /*logistica*/
-(7, 2, 1),
-(8, 2, 2),
-/*recursos humanos*/
-(9, 3, 3),
-(10, 3, 4),
+(11, 2, 9),
+(12, 2, 10),
+(13, 2, 4),
+(14, 2, 5),
+(15, 2, 2),
+(16, 2, 3),
+
 /*operaciones*/
-(11, 4, 5),
-(12, 4, 6),
-/*planeamiento*/
-(13, 5, 3),
-(14, 5, 4),
-(15, 5, 5),
-(16, 5, 6);
+(17, 3, 7);
 
 create table servicio
 (
