@@ -22,7 +22,7 @@
                   <div class="form-group">
                     <label class="col-lg-2 control-label">Nombre</label>
                     <div class="col-lg-6">
-                      <input type="text" placeholder=" " name="nombre" class="form-control">
+                      <input type="text" name="nombre" class="form-control" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -31,7 +31,7 @@
                       <div class="row">
                         <div class="col-sm-8">
                           <input type="hidden" id="id_contribuyente" name="id_contribuyente">
-                          <input type="text" id="query" class="form-control" onchange="buscador()">
+                          <input type="text" id="query" class="form-control" onchange="buscador()" required>
                         </div>
                         <div class="col-sm-4">
                           <button type="button" class="btn btn-info" data-toggle="modal" data-target="#verificar"><i class="fa fa-check"></i> Verificar</button>
@@ -61,7 +61,7 @@
                   <div class="form-group">
                     <label class="col-lg-2 control-label">Servicio</label>
                     <div class="col-lg-6">
-                      <select class="form-control" name="id_servicio" id="servicio" onchange="dataServicio()">
+                      <select class="form-control" name="id_servicio" id="servicio" onchange="dataServicio()" required>
                         <option selected>seleccione...</option>
                         @foreach ($servicios as $item)
                         
@@ -74,7 +74,7 @@
                   <div class="form-group">
                     <label class="col-lg-2 control-label">Fecha</label>
                     <div class="col-lg-6">
-                      <input class="form-control" type="date" name="fecha">
+                      <input class="form-control" type="date" name="fecha" required>
                       
                     </div>
                   </div>
@@ -100,7 +100,7 @@
                   <div class="form-group">
                     <label class="col-lg-2 control-label">Description</label>
                     <div class="col-lg-10">
-                      <textarea rows="10" cols="30" class="form-control" name="descripcion">sin descripcion</textarea>
+                      <textarea rows="10" cols="30" class="form-control" name="descripcion">sin descripción</textarea>
                     </div>
                   </div>
                   <div class="form-group">
@@ -142,42 +142,30 @@
               id.setAttribute('value', 0);
               datos.innerText = "no se encontró.";
           }
-            
-            @foreach($contribuyente as $item )
-              @foreach($item->ContribuyenteDNI()->get() as $cdni )
-                @foreach($cdni->personaNatural()->get() as $p )
-                  if (q.value == "{{$p->dni}}") {
-                    console.log("{{$p->nombre}}");
-                    datos.innerText = "{{$p->apellido_pa}} {{$p->apellido_ma}}, {{$p->nombre}}";
-                    id.setAttribute('value', "{{$item->id_contribuyente}}");
-                  }
-                  @endforeach
-              @endforeach
 
-              @foreach($item->ContribuyenteRUC()->get() as $cruc )
-                @foreach($cruc->personaJuridica()->get() as $p )
-                if (q.value == "{{$p->ruc}}") {
-                  console.log("{{$p->razon_social}}");
-                  datos.innerText = "{{$p->razon_social}}";
-                  id.setAttribute('value', "{{$item->id_contribuyente}}");
+          let contribuyentes = @json($contribuyentes);
+          contribuyentes.forEach(contribuyente => {
+            if (contribuyente.contribuyente_d_n_i) {
+
+                if (q.value == contribuyente.contribuyente_d_n_i.persona_natural.dni) {
+                    id.setAttribute('value', contribuyente.id_contribuyente);
+                    // console.log(contribuyente.id_contribuyente);
+                    // console.log(contribuyente.contribuyente_d_n_i.persona_natural.dni);
+                    datos.innerText =`${contribuyente.contribuyente_d_n_i.persona_natural.apellido_pa} ${contribuyente.contribuyente_d_n_i.persona_natural.apellido_ma}, ${contribuyente.contribuyente_d_n_i.persona_natural.nombre}`;
                 }
-                  @endforeach
-              
-              @endforeach
-            @endforeach
 
-            // @foreach($ruc as $item )
-            //   @foreach($item->personaNatural()->get() as $p )
-            //       console.log("{{$p->nombre}}")
-            //     @endforeach
-            // @endforeach
+            }
+            if (contribuyente.contribuyente_r_u_c) {
 
-        // ruc.forEach(element => {
-        //       if (q.value == element.ruc) {
-        //         id.setAttribute('value', element.id_persona_juridica);
-        //         datos.innerText = element.razon_social;
-        //       }
-        // });
+              if (q.value == contribuyente.contribuyente_r_u_c.persona_juridica.ruc) {
+                  id.setAttribute('value', contribuyente.id_contribuyente);
+                  // console.log(contribuyente.contribuyente_r_u_c.persona_juridica.ruc);
+                  datos.innerText = contribuyente.contribuyente_r_u_c.persona_juridica.razon_social;
+              }
+
+            }
+          });
+
       }
       function dataServicio(){
         servicio = document.getElementById("servicio");

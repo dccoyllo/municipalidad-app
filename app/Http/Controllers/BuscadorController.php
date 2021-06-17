@@ -9,7 +9,7 @@ class BuscadorController extends Controller
 {
     public function getSearchDNI($dni)
     {
-        $dni = PersonaNatural::where('dni', 'like', $dni."%")->take(1)->get();
+        $dni = PersonaNatural::where('dni', 'like', $dni)->get();
         return $dni;
     }
     public function getSearchRUC($dni)

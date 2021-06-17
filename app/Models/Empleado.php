@@ -14,4 +14,8 @@ class Empleado extends Model
     {
         return $this->belongsTo('App\Models\Oficina', 'id_oficina');
     }
+    public function UserEmpleado()
+    {
+        return $this->hasOne('App\Models\UserEmpleado',  'empleado_id', 'id_empleado');
+    }
 }

@@ -42,7 +42,9 @@
                                         <select name="id_empleado" class="form-control">
                                           <option>seleccione...</option>
                                           @foreach ($empleados as $empleado)
-                                          <option value="{{$empleado->id_empleado}}">{{$empleado->apellido}}, {{$empleado->nombre}}</option>
+                                            @if ($empleado->UserEmpleado == null)
+                                              <option value="{{$empleado->id_empleado}}">{{$empleado->apellido}}, {{$empleado->nombre}}</option>
+                                            @endif
                                           @endforeach
                                         </select>
                                       </div>
@@ -134,6 +136,63 @@
                                 <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar-{{$item->id}}"><i class="fa fa-trash-o "></i></button>
                                 @endif
                           <!-- Modal para editar oficina -->
+                           @if ($item->id == 1)
+                           <div class="modal fade" id="editar-{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                            <div  class="modal-dialog" role="document">
+                                  
+                              <form class="modal-content" method="POST" action="/usuario/{{$item->id}}">
+                                @method('PUT')
+                                @csrf
+                                <div class="modal-header">
+                                  <h4 class="modal-title" id="myModalLabel">Editar Usuario</h4>
+                                </div>
+          
+                                <div class="modal-body">
+          
+                                  <div class="form-group">
+                                    <label for="codigo">Cuenta</label>
+                                    <input type="text" class="form-control" name="cuenta" value={{$item->cuenta}}>
+                                  </div>
+          
+                                  <div class="form-group">
+                                    <label for="nombre">Correo</label>
+                                    <input type="text" class="form-control" name="email" value="{{$item->email}}">
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="nombre">Roles</label>
+                                    <select name="id_rol" class="form-control">
+                                      <option>seleccione...</option>
+                                      @foreach ($roles as $rol)
+                                      @if ($item->UserRol->rol->id_rol == $rol->id_rol)
+                                        <option value="{{$rol->id_rol}}" selected>{{$rol->nombre}}</option>
+                                        @else
+                                        <option value="{{$rol->id_rol}}">{{$rol->nombre}}</option>
+                                      @endif
+                                      @endforeach
+                                    </select>
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="codigo">Contraseña</label>
+                                    <input type="password" class="form-control" name="password" required>
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="codigo">Nueva Contraseña</label>
+                                    <input type="password" class="form-control" name="new_password">
+                                  </div>
+                                </div>
+          
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                  <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
+                              </form>
+
+                            </div>
+                          </div>
+                           @else
                            <div class="modal fade" id="editar-{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
                             <div  class="modal-dialog" role="document">
                                   
@@ -196,6 +255,7 @@
 
                             </div>
                           </div>
+                           @endif
                           <!-- Modal para editar oficina -->
                                 
                                 <!-- Modal para eliminar Contrato -->

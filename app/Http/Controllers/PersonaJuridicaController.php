@@ -14,7 +14,7 @@ class PersonaJuridicaController extends Controller
      */
     public function index()
     {
-        $pjuridicas = PersonaJuridica::all();
+        $pjuridicas = PersonaJuridica::paginate(10);
         return view('modulo.cliente.empresa', compact('pjuridicas'));
     }
 
@@ -36,7 +36,14 @@ class PersonaJuridicaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pjuridica = new PersonaJuridica();
+        $pjuridica->ruc = $request->ruc;
+        $pjuridica->razon_social = $request->razon_social;
+        $pjuridica->propietario = $request->propietario;
+        $pjuridica->descripcion = $request->descripcion;
+        $pjuridica->fecha = $request->fecha;
+        $pjuridica->save();
+        return redirect()->back()->with('estado', "se ha creado correctamente.");
     }
 
     /**
@@ -70,7 +77,13 @@ class PersonaJuridicaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $pjuridica = PersonaJuridica::find($id);
+        $pjuridica->ruc = $request->ruc;
+        $pjuridica->razon_social = $request->razon_social;
+        $pjuridica->propietario = $request->propietario;
+        $pjuridica->descripcion = $request->descripcion;
+        $pjuridica->save();
+        return redirect()->back()->with('estado', "se ha actualizado correctamente.");
     }
 
     /**
@@ -81,6 +94,8 @@ class PersonaJuridicaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pjuridica = PersonaJuridica::find($id);
+        $pjuridica->delete();
+        return redirect()->back()->with('estado', "se ha eliminado correctamente.");
     }
 }

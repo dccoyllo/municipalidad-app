@@ -11,42 +11,6 @@
                       <div class="showback">
                         <h4><i class="fa fa-angle-right"></i> Contribuyentes</h4>
                         {{-- <button href="/oficina/create" class="btn btn-primary" data-toggle="modal" data-target="#agregar_nuevo_contrato">Crear</button> --}}
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#agregar_nuevo_contrato">Crear</button>
-
-                            <!-- Modal para agregar Contrato -->
-                            <div class="modal fade" id="agregar_nuevo_contrato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
-                              <div  class="modal-dialog" role="document">
-                                    <form class="modal-content" method="POST" action="/oficina">
-                                      @method('POST')
-                                      @csrf
-                                      <div class="modal-header">
-                                        <h4 class="modal-title" id="myModalLabel">Crear Oficina</h4>
-                                      </div>
-                
-                                      <div class="modal-body">
-                
-                                        <div class="form-group">
-                                          <label for="codigo">Codigo</label>
-                                          <input type="text" class="form-control" name="cod">
-                                        </div>
-                
-                                        <div class="form-group">
-                                          <label for="nombre">Nombre</label>
-                                          <input type="text" class="form-control" name="nombre">
-                                        </div>
-                
-                                      </div>
-                
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
-                                      </div>
-                                    </form>
-                                  
-                              </div>
-                            </div>
-                            <!-- Modal para agregar Contrato -->
-
 
                           <table class="table table-striped table-advance table-hover">
             

@@ -142,7 +142,6 @@ apellido_ma varchar(25) not null,
 fecha_nacimiento date not null,
 sexo varchar(1) not null,
 profesion varchar(45) not null,
-estado boolean not null,
 
 created_at timestamp,
 updated_at timestamp
@@ -152,28 +151,14 @@ create table persona_juridico
 (
 id_persona_juridico int not null primary key auto_increment,
 ruc int(15) not null unique,
-id_persona_natural int not null,
+propietario varchar(100) not null,
 razon_social varchar(50) not null,
 descripcion varchar(500) not null,
-estado boolean,
+fecha date,
 
 created_at timestamp,
-updated_at timestamp,
-constraint fk_id_persona_natural foreign key(id_persona_natural)
-references persona_natural(id_persona_natural)
-on update cascade
-on delete cascade
+updated_at timestamp
 );
-
-create table tipo_identificacion
-(
-id_tipo_identificacion int not null primary key,
-nombre varchar(15) not null
-);
-insert into tipo_identificacion
-values
-(1, "DNI"),
-(2, "RUC");
 
 create table contribuyente 
 (
@@ -191,15 +176,12 @@ create table contribuyente_dni
 (
 id_contribuyente_dni int not null primary key auto_increment,
 id_persona_natural int not null,
-id_tipo_identificacion int not null,
 id_contribuyente int not null,
 
 created_at timestamp,
 updated_at timestamp,
 constraint fk_id_persona_natural_dni foreign key(id_persona_natural)
 references persona_natural(id_persona_natural),
-constraint fk_id_tipo_identificacion_dni foreign key(id_tipo_identificacion)
-references tipo_identificacion(id_tipo_identificacion),
 constraint fk_id_contribuyente_dni foreign key(id_contribuyente)
 references contribuyente(id_contribuyente)
 on update cascade
@@ -210,15 +192,12 @@ create table contribuyente_ruc
 (
 id_contribuyente_ruc int not null primary key auto_increment,
 id_persona_juridico int not null,
-id_tipo_identificacion int not null,
 id_contribuyente int not null,
 
 created_at timestamp,
 updated_at timestamp,
 constraint fk_id_persona_juridico_ruc foreign key(id_persona_juridico)
 references persona_juridico(id_persona_juridico),
-constraint fk_id_tipo_identificacion_ruc foreign key(id_tipo_identificacion)
-references tipo_identificacion(id_tipo_identificacion),
 constraint fk_id_contribuyente_ruc foreign key(id_contribuyente)
 references contribuyente(id_contribuyente)
 on update cascade

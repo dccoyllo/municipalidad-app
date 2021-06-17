@@ -10,6 +10,7 @@ use App\Models\EstadoContrato;
 use App\Models\PersonaJuridica;
 use App\Models\PersonaNatural;
 use App\Models\Servicio;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class ContratoController extends Controller
@@ -34,10 +35,8 @@ class ContratoController extends Controller
     public function create()
     {
         $servicios = Servicio::all();
-        $contribuyente = Contribuyente::all();
-        $dni = ContribuyenteDNI::all();
-        $ruc = PersonaJuridica::all();
-        return view('modulo.contrato.create', compact('servicios', 'contribuyente', 'dni', 'ruc'));
+        $contribuyentes = new Collection(Contribuyente::all()->load("ContribuyenteDNI.PersonaNatural", "ContribuyenteRUC.PersonaJuridica"));
+        return view('modulo.contrato.create', compact('servicios', 'contribuyentes'));
     }
 
     /**

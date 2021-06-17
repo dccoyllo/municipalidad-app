@@ -33,7 +33,7 @@
                             @php
                                 $contador = 1
                             @endphp
-                        @foreach ($contratos->sortBy('cod') as $item)
+                        @foreach ($contratos->sortBy('id_estado_contrato') as $item)
                         <tr>
                             <td>{{$contador++}}</td>
                             <td>{{$item->cod}}</td>

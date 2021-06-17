@@ -18,7 +18,7 @@
                           <!-- Modal para agregar Contrato -->
                            <div class="modal fade" id="agregar_nuevo_contrato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
                             <div  class="modal-dialog" role="document">
-                                  <form class="modal-content" method="POST" action="/oficina">
+                                  <form class="modal-content" method="POST" action="/empresa">
                                     @method('POST')
                                     @csrf
                                     <div class="modal-header">
@@ -28,13 +28,28 @@
                                     <div class="modal-body">
               
                                       <div class="form-group">
-                                        <label for="codigo">Codigo</label>
-                                        <input type="text" class="form-control" name="cod">
+                                        <label for="codigo">RUC</label>
+                                        <input type="text" class="form-control" name="ruc" required>
                                       </div>
               
                                       <div class="form-group">
-                                        <label for="nombre">Nombre</label>
-                                        <input type="text" class="form-control" name="nombre">
+                                        <label for="nombre">Razon Social</label>
+                                        <input type="text" class="form-control" name="razon_social" required>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label for="nombre">Propietario</label>
+                                        <input type="text" class="form-control" name="propietario">
+                                      </div>
+              
+                                      <div class="form-group">
+                                        <label for="nombre">Descripción</label>
+                                        <textarea class="form-control" rows="5" name="descripcion">sin descripción</textarea>
+                                      </div>
+    
+                                      <div class="form-group">
+                                        <label for="nombre">Creada</label>
+                                        <input type="date" class="form-control" name="fecha" required>
                                       </div>
               
                                     </div>
@@ -56,10 +71,11 @@
                           <thead>
                             <tr>
                               <th>#</th>
-                              <th>Ruc</th>
+                              <th>RUC</th>
                               <th>Razon Social</th>
-                              <th>Dueño</th>
+                              <th>Propietario</th>
                               <th>Descripcion</th>
+                              <th>Creada</th>
                               <th>Opciones</th>
                             </tr>
                           </thead>
@@ -72,35 +88,50 @@
                             <td>{{$contador++}}</td>
                             <td>{{$item->ruc}}</td>
                             <td>{{$item->razon_social}}</td>
-                            <td>{{$item->personaNatural->apellido_pa}} {{$item->personaNatural->apellido_ma}}, {{$item->personaNatural->nombre}}</td>
+                            <td>{{$item->propietario}}</td>
                             <td>{{$item->descripcion}}</td>
+                            <td>{{date('d/m/Y', strtotime($item->fecha))}}</td>
                             <td>
                                 {{-- <a class="btn btn-primary btn-xs" href="/oficina/{{$item->id_oficina}}/edit"><i class="fa fa-pencil"></i></a> --}}
-                                <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editar-{{$item->id_oficina}}"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar-{{$item->id_oficina}}"><i class="fa fa-trash-o "></i></button>
+                                <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editar-{{$item->id_persona_juridico}}"><i class="fa fa-pencil"></i></button>
+                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar-{{$item->id_persona_juridico}}"><i class="fa fa-trash-o "></i></button>
                           <!-- Modal para editar oficina -->
-                           <div class="modal fade" id="editar-{{$item->id_oficina}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                           <div class="modal fade" id="editar-{{$item->id_persona_juridico}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
                             <div  class="modal-dialog" role="document">
                                   
-                              <form class="modal-content" method="POST" action="/oficina/{{$item->id_oficina}}">
+                              <form class="modal-content" method="POST" action="/empresa/{{$item->id_persona_juridico}}">
                                 @method('PUT')
                                 @csrf
                                 <div class="modal-header">
-                                  <h4 class="modal-title" id="myModalLabel">Editar Oficina</h4>
+                                  <h4 class="modal-title" id="myModalLabel">Editar Empresa</h4>
                                 </div>
           
                                 <div class="modal-body">
           
                                   <div class="form-group">
-                                    <label for="codigo">Codigo</label>
-                                    <input type="text" class="form-control" name="cod" value={{$item->cod}}>
+                                    <label for="codigo">RUC</label>
+                                    <input type="text" class="form-control" name="ruc" value={{$item->ruc}}>
                                   </div>
           
                                   <div class="form-group">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" name="nombre" value="{{$item->nombre}}">
+                                    <label for="nombre">Razon social</label>
+                                    <input type="text" class="form-control" name="razon_social" value="{{$item->razon_social}}">
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="nombre">Propietario</label>
+                                    <input type="text" class="form-control" name="propietario" value="{{$item->propietario}}">
                                   </div>
           
+                                  <div class="form-group">
+                                    <label for="nombre">Descripción</label>
+                                    <textarea name="descripcion" class="form-control" rows="5">{{$item->descripcion}}</textarea>
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="nombre">Creada</label>
+                                    <input type="text" class="form-control" value="{{date('d/m/Y', strtotime($item->fecha))}}" disabled>
+                                  </div>
                                 </div>
           
                                 <div class="modal-footer">
@@ -114,7 +145,7 @@
                           <!-- Modal para editar oficina -->
                                 
                                 <!-- Modal para eliminar Contrato -->
-                                <div class="modal fade" id="eliminar-{{$item->id_oficina}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                                <div class="modal fade" id="eliminar-{{$item->id_persona_juridico}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                           <div class="modal-header">
@@ -122,10 +153,10 @@
                                           </div>
 
                                             <div class="modal-body">
-                                            Deseas eliminar: <strong>{{$item->nombre}}</strong>
+                                            Deseas eliminar: <strong>{{$item->razon_social}}</strong>
                                             </div>
 
-                                            <form class="modal-footer" method="POST" action="{{ url("oficina/{$item->id_oficina}") }}">
+                                            <form class="modal-footer" method="POST" action="{{ url("empresa/{$item->id_persona_juridico}") }}">
                                               @csrf
                                               @method('DELETE')
                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -144,52 +175,19 @@
                       </div>
                       <!-- /content-panel -->
                 </div>
-                <div class="col-lg-12">
-                  @if (session('estado_oficina'))
-                          @if (session('estado_oficina') == 1)
-                          <div class="alert alert-success alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <strong>Success!</strong> Se ha eliminado correctamente.
-                          </div>
-                          @else
-                          <div class="alert alert-danger alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <strong>Error!</strong> No se ha podido eliminar.
-                          </div>
-                          @endif
-                      @endif
-                </div>
-                  @if (session('estado-create'))
-                  <div class="col-lg-12">
-                    @if (session('estado-create') == 1)
-                    <div class="alert alert-success alert-dismissable">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                      <strong>Success!</strong> Se ha creado correctamente.
-                    </div>
-                    @else
-                    <div class="alert alert-danger alert-dismissable">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                      <strong>Error!</strong> No se ha podido crear.
-                    </div>
-                    @endif
-                  </div>
-                @endif
-                @if (session('estado-update'))
-                <div class="col-lg-12">
-                  @if (session('estado-update') == 1)
-                  <div class="alert alert-success alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong>Success!</strong> Se ha actualizado correctamente.
-                  </div>
-                  @else
-                  <div class="alert alert-danger alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong>Error!</strong> No se ha podido actualizar.
-                  </div>
-                  @endif
-                </div>
-              @endif
                 
+                <div class="col-lg-12 text-center">
+                  {{ $pjuridicas->links() }}
+                </div>
+
+                <div class="col-lg-12">
+                    @if (session('estado'))
+                        <div class="alert alert-success alert-dismissable">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                          {{session('estado')}}
+                        </div>
+                    @endif
+                </div>
             </div>
         </section>
         <!-- /wrapper -->

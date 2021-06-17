@@ -47,20 +47,19 @@ class ContribuyenteController extends Controller
         $contribuyente->numero_telefonico = $request->telefono;
         $contribuyente->direccion = $request->direccion;
         $contribuyente->referencia = $request->referencia;
+        $contribuyente->estado = 1;
         $contribuyente->save();
 
         if($request->id_tipo_identificacion == 1){
             $contribuyente_dni = new ContribuyenteDNI();
             $contribuyente_dni->id_persona_natural = $request->id_contribuyente;
             $contribuyente_dni->id_contribuyente = $contribuyente->id_contribuyente;
-            $contribuyente_dni->id_tipo_identificacion = $request->id_tipo_identificacion;
             $contribuyente_dni->save();
         }
         if($request->id_tipo_identificacion == 2){
             $contribuyente_ruc = new ContribuyenteRUC();
             $contribuyente_ruc->id_persona_juridico = $request->id_contribuyente;
             $contribuyente_ruc->id_contribuyente = $contribuyente->id_contribuyente;
-            $contribuyente_ruc->id_tipo_identificacion = $request->id_tipo_identificacion;
             $contribuyente_ruc->save();
         }
 
