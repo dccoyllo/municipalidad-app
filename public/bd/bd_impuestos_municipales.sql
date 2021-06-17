@@ -24,6 +24,7 @@ created_at timestamp,
 updated_at timestamp,
 constraint fk_id_oficina foreign key (id_oficina)
 references oficina(id_oficina)
+on delete cascade
 );
 
 create table rol
@@ -71,13 +72,16 @@ references modulo(id_modulo)
 insert into submodulo
 values
 (1, 'empleado', 'fa', 1, 'empleado', 1),
-(2, 'contrato', 'fa', 1, 'contrato', 5),
-(3, 'contribuyente', 'fa', 1, 'contribuyente', 4),
-(4, 'oficina', 'fa', 1, 'oficina', 1),
-(5, 'servicio', 'fa', 1, 'servicio', 6),
-(6, 'usuario', 'fa', 1, 'usuario', 2),
-(7, 'Persona Natural', 'fa', 1, 'persona', 3),
-(8, 'Persona Juridica', 'fa', 1, 'empresa', 3);
+(2, 'todos los contrato', 'fa', 1, 'contrato', 5),
+(3, 'nuevo contrato', 'fa', 1, 'contrato/create', 5),
+
+(4, 'contribuyente', 'fa', 1, 'contribuyente', 4),
+(5, 'nuevo contribuyente', 'fa', 1, 'contribuyente/create', 4),
+(6, 'oficina', 'fa', 1, 'oficina', 1),
+(7, 'servicio', 'fa', 1, 'servicio', 6),
+(8, 'usuario', 'fa', 1, 'usuario', 2),
+(9, 'Persona', 'fa', 1, 'persona', 3),
+(10, 'Empresa', 'fa', 1, 'empresa', 3);
 
 create table rol_submodulo
 (
@@ -118,6 +122,7 @@ values
 create table servicio
 (
 id_servicio int not null primary key auto_increment,
+abreviatura varchar(8) unique not null,
 nombre varchar(50) not null,
 descripcion varchar(200) not null,
 tarifa double not null,
@@ -129,7 +134,7 @@ updated_at timestamp
 
 create table persona_natural
 (
-id_persona_natural int not null primary key,
+id_persona_natural int not null primary key auto_increment,
 dni int(8) not null unique,
 nombre varchar(25) not null,
 apellido_pa varchar(25) not null,
@@ -156,6 +161,8 @@ created_at timestamp,
 updated_at timestamp,
 constraint fk_id_persona_natural foreign key(id_persona_natural)
 references persona_natural(id_persona_natural)
+on update cascade
+on delete cascade
 );
 
 create table tipo_identificacion
@@ -195,6 +202,8 @@ constraint fk_id_tipo_identificacion_dni foreign key(id_tipo_identificacion)
 references tipo_identificacion(id_tipo_identificacion),
 constraint fk_id_contribuyente_dni foreign key(id_contribuyente)
 references contribuyente(id_contribuyente)
+on update cascade
+on delete cascade
 );
 
 create table contribuyente_ruc
@@ -212,25 +221,29 @@ constraint fk_id_tipo_identificacion_ruc foreign key(id_tipo_identificacion)
 references tipo_identificacion(id_tipo_identificacion),
 constraint fk_id_contribuyente_ruc foreign key(id_contribuyente)
 references contribuyente(id_contribuyente)
+on update cascade
+on delete cascade
 );
 
 create table estado_contrato
 (
 id_estado_contrato int not null primary key,
-nombre varchar(45) not null
+nombre varchar(45) not null,
+color varchar(45)
 );
 insert into estado_contrato
 values
-(1, "Pendiente"),
-(2, "En proceso"),
-(3, "Finalizado");
+(1, "Pendiente", "label-warning"),
+(2, "En proceso", "label-primary"),
+(3, "Finalizado", "label-success");
 
 create table contrato
 (
 id_contrato int not null primary key auto_increment,
-cod int(4) not null unique,
+cod varchar(8) not null unique,
 nombre varchar(50) not null,
-descripcion varchar(100) not null,
+fecha date not null,
+descripcion varchar(100) default "Sin descripción",
 impuesto double not null,
 id_servicio int not null,
 id_estado_contrato int not null,
@@ -244,6 +257,8 @@ constraint fk_id_estado_contrato foreign key(id_estado_contrato)
 references estado_contrato(id_estado_contrato),
 constraint fk_id_contribuyente_contrato foreign key(id_contribuyente)
 references contribuyente(id_contribuyente)
+on update cascade
+on delete cascade
 );
 
 
@@ -261,32 +276,24 @@ constraint fk_id_usuario foreign key(id_usuario)
 references empleado(id_empleado),
 );*/
 
-
 insert into users
-values
-(1, 'admin', 'admin@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, null, current_date(), current_date()),
-(2, 'admin2', 'admin2@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, null, current_date(), current_date()),
-(3, 'admin3', 'admin3@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, null, current_date(), current_date()),
-(4, 'admin4', 'admin4@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, null, current_date(), current_date());
+value
+(1, 'admin', 'admin@hotmail.com', null ,'$2y$10$dsvG16/tkLMiPJYl7mzdL.Ouvy15YLCsmeREL0vIruE44gSikMV8i', 0, null, current_date(), current_date());
+
 create table users_empleado
 (
 id int not null primary key auto_increment,
 user_id bigint unsigned not null,
-empleado_id int not null,
+empleado_id int not null unique,
 created_at timestamp,
 updated_at timestamp,
 constraint fk_user_id_empleado foreign key(user_id)
 references users(id),
 constraint fk_empleado_id foreign key(empleado_id)
 references empleado(id_empleado)
+on delete cascade
 );
 
-insert into users_empleado
-values
-(1, 1, 1, current_date(), current_date()),
-(2, 2, 2, current_date(), current_date()),
-(3, 3, 3, current_date(), current_date()),
-(4, 4, 4, current_date(), current_date());
 create table users_rol
 (
 id int not null primary key auto_increment,
@@ -296,14 +303,11 @@ rol_id int not null,
 created_at timestamp,
 updated_at timestamp,
 constraint fk_user_id_rol foreign key(user_id)
-references users(id) on delete cascade,
+references users(id),
 constraint fk_rol_id foreign key(rol_id)
-references rol(id_rol) on delete cascade
+references rol(id_rol)
+on delete cascade
 );
 insert into users_rol
-values
-(1, 1, 1, current_date(), current_date()),
-(2, 2, 2, current_date(), current_date()),
-(3, 3, 3, current_date(), current_date()),
-(4, 4, 4, current_date(), current_date());
-
+value
+(1, 1, 1, current_date(), current_date());

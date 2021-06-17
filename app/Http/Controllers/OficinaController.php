@@ -41,7 +41,7 @@ class OficinaController extends Controller
         $oficina->nombre = $request->nombre;
         $oficina->save();
         // return redirect()->intended('/oficina/create')->with('estado', 1);
-        return redirect()->intended('/oficina')->with('estado-create', 1);
+        return redirect()->back()->with('estado-create', 1);
     }
 
     /**

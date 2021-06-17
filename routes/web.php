@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BuscadorController;
+use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\ContribuyenteController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ModuloController;
@@ -30,8 +32,10 @@ Route::resource('persona', PersonaNaturalController::class)->middleware('auth');
 Route::resource('empresa', PersonaJuridicaController::class)->middleware('auth');
 
 Route::resource('contribuyente', ContribuyenteController::class)->middleware('auth');
+Route::resource('contrato', ContratoController::class)->middleware('auth');
 
-
+Route::get('dni/{dni}', [BuscadorController::class, 'getSearchDNI'])->middleware('auth');
+Route::get('ruc/{ruc}', [BuscadorController::class, 'getSearchRUC'])->middleware('auth');
 
 
 

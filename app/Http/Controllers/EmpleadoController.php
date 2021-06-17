@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empleado;
-
+use App\Models\Oficina;
 use Illuminate\Http\Request;
 
 class EmpleadoController extends Controller
@@ -16,7 +16,8 @@ class EmpleadoController extends Controller
     public function index()
     {
         $empleados = Empleado::all();
-        return view('modulo.empleado.empleado', compact('empleados'));
+        $oficinas = Oficina::all();
+        return view('modulo.empleado.empleado', compact('empleados', 'oficinas'));
     }
 
     /**
@@ -37,7 +38,15 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $empleado = new Empleado();
+        $empleado->dni = $request->dni;
+        $empleado->nombre = $request->nombre;
+        $empleado->apellido = $request->apellido;
+        $empleado->cargo = $request->cargo;
+        $empleado->id_oficina = $request->id_oficina;
+        $empleado->save();
+        // return redirect()->intended('/empleado/create')->with('estado', 1);
+        return redirect()->intended('/empleado')->with('mensaje', "se ha creado correctamente");
     }
 
     /**
@@ -71,7 +80,16 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $empleado = Empleado::find($id);
+        $empleado->dni = $request->dni;
+        $empleado->nombre = $request->nombre;
+        $empleado->apellido = $request->apellido;
+        $empleado->cargo = $request->cargo;
+        $empleado->id_oficina = $request->id_oficina;
+        $empleado->save();
+        // return redirect()->intended('/empleado/create')->with('estado', 1);
+        return redirect()->action([EmpleadoController::class, 'index'])->with('mensaje', "Se ha actualizado correctamente.");
+
     }
 
     /**
@@ -82,6 +100,8 @@ class EmpleadoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $empleado = Empleado::find($id);
+        $empleado->delete();
+        return redirect()->intended('empleado')->with('mensaje', "se ha borrado correctamente.");
     }
 }

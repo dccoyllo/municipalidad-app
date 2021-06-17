@@ -1,216 +1,226 @@
 @extends('layout.layout')
-@section('titulo', 'Usuario')
+@section('titulo', 'Oficina')
 @section('body')
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper site-min-height">
+            {{-- <h3><i class="fa fa-angle-right"></i> Blank Page</h3> --}}
             <div class="row mt">
+              
                 <div class="col-lg-12">
-                    {{-- <p>{{$usuarios}}</p> --}}
-                   
+                    {{-- <p>{{$oficinas}}</p> --}}
 
-                    <div class="content-panel">
-                        <table class="table table-striped table-advance table-hover">
-                          <h4><i class="fa fa-angle-right"></i> Usuarios</h4>
-          
-          
-                          <!-- boton para agregar Contrato -->
-                          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#agregar_nuevo_contrato">Agregar Contratos</button>
-                          <!-- boton para agregar Contrato -->
-          
-          
+                    <div class="showback">
+                      <h4><i class="fa fa-angle-right"></i> Administración de Usuarios y Roles</h4>
+                      {{-- <button href="/oficina/create" class="btn btn-primary" data-toggle="modal" data-target="#agregar_nuevo_contrato">Crear</button> --}}
+                      <button class="btn btn-primary" data-toggle="modal" data-target="#agregar_nuevo_contrato">Crear</button>
+
                           <!-- Modal para agregar Contrato -->
-                          <div class="modal fade" id="agregar_nuevo_contrato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                   <h5 class="modal-title" id="exampleModalLabel">Agregar contrato</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-          
-          
-                                <div class="modal-body">
-          
-                                  <div class="form-group">
-                                    <label for="codigo">Codigo</label>
-                                    <input type="text" class="form-control" id="agregar_codigo_contrato" placeholder="Ingrese el codigo">
-                                  </div>
-          
-                                  <div class="form-group">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" id="agregar_nombre_contrato" placeholder="Ingrese el nombre">
-                                  </div>
-          
-                                  <div class="form-group">
-                                    <label for="descripcion">Descripcion</label>
-                                    <input type="text" class="form-control" id="agregar_descripcion_contrato" placeholder="Ingrese la descripcion">
-                                  </div>
-          
-                                  <div class="form-group">
-                                    <label for="impuesto">Impuesto</label>
-                                    <input type="text" class="form-control" id="agregar_impuesto_contrato" placeholder="Ingrese el impuesto">
-                                  </div>
-          
-                                  <div class="form-group">
-                                    <label for="idServicio">ID Servicio</label>
-                                    <select class="form-control" id="agregar_idservicio_contrato">
-                                      <option>Activo</option>
-                                      <option>Desactivo</option>
-                                      <option>Fuera de linea</option>
-                                    </select>
-                                  </div>
-          
-                                  <div class="form-group">
-                                    <label for="idContrato">ID Estado del contrato</label>
-                                    <select class="form-control" id="agregar_idcontrato_contrato">
-                                      <option>Supuestamente se jala</option>
-                                      <option>con bd</option>
-                                    </select>
-                                  </div>
-          
-                                </div>
-          
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                  <button type="button" class="btn btn-primary" id="agregar_contrato">Guardar</button>
-                                </div>
-                              </div>
+                           <div class="modal fade" id="agregar_nuevo_contrato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                            <div  class="modal-dialog" role="document">
+                                  <form class="modal-content" method="POST" action="/usuario">
+                                    @method('POST')
+                                    @csrf
+                                    <div class="modal-header">
+                                      <h4 class="modal-title" id="myModalLabel">Crear Usuario</h4>
+                                    </div>
+              
+                                    <div class="modal-body">
+              
+                                      <div class="form-group">
+                                        <label for="codigo">Cuenta</label>
+                                        <input type="text" class="form-control" name="cuenta">
+                                      </div>
+              
+                                      <div class="form-group">
+                                        <label for="nombre">Correo</label>
+                                        <input type="text" class="form-control" name="email">
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label for="nombre">Empleados</label>
+                                        <select name="id_empleado" class="form-control">
+                                          <option>seleccione...</option>
+                                          @foreach ($empleados as $empleado)
+                                          <option value="{{$empleado->id_empleado}}">{{$empleado->apellido}}, {{$empleado->nombre}}</option>
+                                          @endforeach
+                                        </select>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label for="nombre">Roles</label>
+                                        <select name="id_rol" class="form-control">
+                                          <option>seleccione...</option>
+                                          @foreach ($roles as $rol)
+                                          <option value="{{$rol->id_rol}}">{{$rol->nombre}}</option>
+                                          @endforeach
+                                        </select>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label for="codigo">Contraseña</label>
+                                        <div class="row">
+                                          <div class="col-lg-11">
+                                            <input type="password" class="form-control" id="clave" onchange="clave1()">
+                                          </div>
+                                          <div class="col" id="mensaje1">
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label for="codigo">Vuelva a escribir</label>
+                                        <div class="row">
+                                          <div class="col-lg-11">
+                                        <input type="password" class="form-control" name="password" id="re_clave" onchange="validator()">
+                                      </div>
+                                      <div class="col" id="mensaje2">
+
+                                      </div>
+                                    </div>
+                                      </div>
+                                      
+                                    </div>
+              
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                      <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                  </form>
+                                
                             </div>
                           </div>
                           <!-- Modal para agregar Contrato -->
+
+
+                        <table class="table table-striped table-advance table-hover">
           
                           <hr>
                           <thead>
                             <tr>
                               <th>#</th>
                               <th>Cuenta</th>
-                              <th>Correo Electrónico</th>
+                              <th>Correo</th>
                               <th>Empleado</th>
                               <th>Rol</th>
-                              {{-- <th>Email Verificado</th> --}}
                               <th>Estado</th>
                               <th>Opciones</th>
                             </tr>
                           </thead>
                           <tbody>
-                            
-                        @foreach ($usuarios as $item)
+                            @php
+                                $contador = 1
+                            @endphp
+                        @foreach ($usuarios->sortBy('cod') as $item)
                         <tr>
-                            <td>{{$item->id}}</td>
+                            <td>{{$contador++}}</td>
                             <td>{{$item->cuenta}}</td>
                             <td>{{$item->email}}</td>
-                            <td>@foreach ($users_empleado as $item2)
-                                @if ($item2->user == $item)
-                                    {{$item2->empleado->nombre}}, {{$item2->empleado->apellido}}
-                                @endif
-                            @endforeach</td>
-                            <td>@foreach ($users_rol as $item3)
-                              @if ($item3->user == $item)
-                                  {{$item3->rol->nombre}}
-                              @endif
-                          @endforeach</td>
-                            {{-- <td>{{$item->email_verified_at}}</td> --}}
+                            <td>@if ($item->UserEmpleado)
+                              {{$item->UserEmpleado->empleado->apellido}}, {{$item->UserEmpleado->empleado->nombre}}
+                            @endif</td>
+                            <td>{{$item->UserRol->rol->nombre}}</td>
                             <td>
-                                @if ($item->estado == 1)
-                                    <span class="label label-success">Conectado</span>
+                              @if ($item->estado == 1)
+                                <span class="label label-success">Conectado</span>
                                 @else
-                                    <span class="label label-danger">Desconectado</span>
-                                @endif
+                                <span class="label label-danger">Desconectado</span>
+                              @endif
                             </td>
-
                             <td>
-                                <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modificar_contrato"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar_contrato"><i class="fa fa-trash-o "></i></button>
-
-                                <!-- Modal para modificar Contrato -->
-                                <div class="modal fade" id="modificar_contrato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modificar contrato</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-
-
-                                        <div class="modal-body">
-
-                                        <div class="form-group">
-                                            <label for="codigo">Codigo</label>
-                                            <input type="text" class="form-control" id="modificar_codigo_contrato" placeholder="Ingrese el codigo">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="nombre">Nombre</label>
-                                            <input type="text" class="form-control" id="modificar_nombre_contrato" placeholder="Ingrese el nombre">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="descripcion">Descripcion</label>
-                                            <input type="text" class="form-control" id="moficicar_descripcion_contrato" placeholder="Ingrese la descripcion">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="impuesto">Impuesto</label>
-                                            <input type="text" class="form-control" id="modificar_impuesto_contrato" placeholder="Ingrese el impuesto">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="idServicio">ID Servicio</label>
-                                            <select class="form-control" id="modificar_idservicio_contrato">
-                                            <option>Activo</option>
-                                            <option>Desactivo</option>
-                                            <option>Fuera de linea</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="idContrato">ID Estado del contrato</label>
-                                            <select class="form-control" id="modificar_idcontrato_contrato">
-                                            <option>Supuestamente se jala</option>
-                                            <option>con bd</option>
-                                            </select>
-                                        </div>
-
-                                        </div>
-
-                                        <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary" id="modificar_contrato">Guardar</button>
-                                        </div>
-                                    </div>
-                                    </div>
+                                {{-- <a class="btn btn-primary btn-xs" href="/oficina/{{$item->id_oficina}}/edit"><i class="fa fa-pencil"></i></a> --}}
+                                <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editar-{{$item->id}}"><i class="fa fa-pencil"></i></button>
+                                @if ($item->id != 1)
+                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar-{{$item->id}}"><i class="fa fa-trash-o "></i></button>
+                                @endif
+                          <!-- Modal para editar oficina -->
+                           <div class="modal fade" id="editar-{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                            <div  class="modal-dialog" role="document">
+                                  
+                              <form class="modal-content" method="POST" action="/usuario/{{$item->id}}">
+                                @method('PUT')
+                                @csrf
+                                <div class="modal-header">
+                                  <h4 class="modal-title" id="myModalLabel">Editar Usuario</h4>
                                 </div>
-                                <!-- Modal para modificar Contrato -->
+          
+                                <div class="modal-body">
+          
+                                  <div class="form-group">
+                                    <label for="codigo">Cuenta</label>
+                                    <input type="text" class="form-control" name="cuenta" value={{$item->cuenta}}>
+                                  </div>
+          
+                                  <div class="form-group">
+                                    <label for="nombre">Correo</label>
+                                    <input type="text" class="form-control" name="email" value="{{$item->email}}">
+                                  </div>
+          
+                                  <div class="form-group">
+                                    <label for="nombre">Empleado</label>
+                                    <input type="text" class="form-control" disabled value=@if ($item->UserEmpleado)
+                                    "{{$item->UserEmpleado->empleado->apellido}}, {{$item->UserEmpleado->empleado->nombre}}"
+                                    @endif>
+                                  </div>
 
+                                  <div class="form-group">
+                                    <label for="nombre">Roles</label>
+                                    <select name="id_rol" class="form-control">
+                                      <option>seleccione...</option>
+                                      @foreach ($roles as $rol)
+                                      @if ($item->UserRol->rol->id_rol == $rol->id_rol)
+                                        <option value="{{$rol->id_rol}}" selected>{{$rol->nombre}}</option>
+                                        @else
+                                        <option value="{{$rol->id_rol}}">{{$rol->nombre}}</option>
+                                      @endif
+                                      @endforeach
+                                    </select>
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="codigo">Contraseña</label>
+                                    <input type="password" class="form-control" name="password" required>
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="codigo">Nueva Contraseña</label>
+                                    <input type="password" class="form-control" name="new_password">
+                                  </div>
+                                </div>
+          
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                  <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
+                              </form>
+
+                            </div>
+                          </div>
+                          <!-- Modal para editar oficina -->
+                                
                                 <!-- Modal para eliminar Contrato -->
-                                <div class="modal fade" id="eliminar_contrato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                                @if ($item->id != 1)
+                                  <div class="modal fade" id="eliminar-{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
                                     <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Eliminar</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h4 class="modal-title" id="myModalLabel">Eliminar</h4>
+                                          </div>
 
+                                            <div class="modal-body">
+                                            Deseas eliminar la cuenta: <strong>{{$item->cuenta}}</strong>
+                                            </div>
 
-                                        <div class="modal-body">
-
-                                        Deseas eliminar a este Contrato?
-
-                                        </div>
-
-                                        <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary" id="eliminar_contrato">Aceptar</button>
+                                            <form class="modal-footer" method="POST" action="{{ url("usuario/{$item->id}") }}">
+                                              @csrf
+                                              @method('DELETE')
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                              <button type="submit" class="btn btn-primary">Aceptar</button>
+                                            </form>
                                         </div>
                                     </div>
-                                    </div>
-                                </div>
+                                  </div>
+                                @endif
                                 <!-- Modal para eliminar Contrato -->
                             </td>
                         </tr>
@@ -221,9 +231,36 @@
                       </div>
                       <!-- /content-panel -->
                 </div>
+
+                @if (session('mensaje'))
+                <div class="col-lg-12">
+                    <div class="alert {{session('alerta')}} alert-dismissable">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                      {{session('mensaje')}}
+                    </div>
                 </div>
+                @endif
+                
             </div>
         </section>
+        <script>
+          function clave1(){
+            var contenedor = document.getElementById("mensaje1");
+            contenedor.innerHTML = '<span class="badge bg-success"><i class="fa fa-check"></i></span>';
+          }
+          function validator(){
+            var contenedor2 = document.getElementById("mensaje2");
+            var clave = document.getElementById('clave');
+            var reclave = document.getElementById('re_clave');
+
+            if (clave.value == reclave.value) {
+            contenedor2.innerHTML = '<span class="badge bg-success"><i class="fa fa-check"></i></span>';
+            } else {
+            contenedor2.innerHTML = '<span class="badge bg-important"><i class="fa fa-times"></i></span>';
+            }            
+            console.log("escribiendo");
+          }
+        </script>
         <!-- /wrapper -->
     </section>
     <!--main content end-->

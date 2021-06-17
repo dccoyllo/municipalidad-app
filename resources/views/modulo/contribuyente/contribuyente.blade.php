@@ -8,338 +8,179 @@
             <div class="row mt">
               
                 <div class="col-lg-12">
-                    {{-- <p>{{$oficinas}}</p> --}}
+                      <div class="showback">
+                        <h4><i class="fa fa-angle-right"></i> Contribuyentes</h4>
+                        {{-- <button href="/oficina/create" class="btn btn-primary" data-toggle="modal" data-target="#agregar_nuevo_contrato">Crear</button> --}}
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#agregar_nuevo_contrato">Crear</button>
 
-                    <div class="showback">
-                      <h4><i class="fa fa-angle-right"></i> Contribuyente Persona Natural</h4>
-                      {{-- <button href="/oficina/create" class="btn btn-primary" data-toggle="modal" data-target="#agregar_nuevo_contrato">Crear</button> --}}
-                      <button class="btn btn-primary" data-toggle="modal" data-target="#agregar_nuevo_contrato">Crear</button>
-
-                          <!-- Modal para agregar Contrato -->
-                           <div class="modal fade" id="agregar_nuevo_contrato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
-                            <div  class="modal-dialog" role="document">
-                                  <form class="modal-content" method="POST" action="/oficina">
-                                    @method('POST')
-                                    @csrf
-                                    <div class="modal-header">
-                                      <h4 class="modal-title" id="myModalLabel">Crear Oficina</h4>
-                                    </div>
-              
-                                    <div class="modal-body">
-              
-                                      <div class="form-group">
-                                        <label for="codigo">Codigo</label>
-                                        <input type="text" class="form-control" name="cod">
-                                      </div>
-              
-                                      <div class="form-group">
-                                        <label for="nombre">Nombre</label>
-                                        <input type="text" class="form-control" name="nombre">
-                                      </div>
-              
-                                    </div>
-              
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                      <button type="submit" class="btn btn-primary">Guardar</button>
-                                    </div>
-                                  </form>
-                                
-                            </div>
-                          </div>
-                          <!-- Modal para agregar Contrato -->
-
-
-                        <table class="table table-striped table-advance table-hover">
-          
-                          <hr>
-                          <thead>
-                            <tr>
-                              <th>#</th>
-                              <th>DNI</th>
-                              <th>Cliente</th>
-                              <th>Sexo</th>
-                              <th>Profesión</th>
-                              <th>Telefono</th>
-                              <th>Dirección</th>
-                              <th>Referencia</th>
-                              <th>Opciones</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            @php
-                                $contador = 1
-                            @endphp
-                        @foreach ($contribuyenteDNI as $item)
-                        <tr>
-                            <td>{{$contador++}}</td>
-                            <td>{{$item->personaNatural->dni}}</td>
-                            <td>{{$item->personaNatural->apellido_pa}} {{$item->personaNatural->apellido_ma}}, {{$item->personaNatural->nombre}}</td>
-                            <td>{{$item->personaNatural->sexo}}</td>
-                            <td>{{$item->personaNatural->profesion}}</td>
-                            <td>{{$item->contribuyente->numero_telefonico}}</td>
-                            <td>{{$item->contribuyente->direccion}}</td>
-                            <td>{{$item->contribuyente->referencia}}</td>
-                            <td>
-                                {{-- <a class="btn btn-primary btn-xs" href="/oficina/{{$item->id_oficina}}/edit"><i class="fa fa-pencil"></i></a> --}}
-                                <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editar-{{$item->id_oficina}}"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar-{{$item->id_oficina}}"><i class="fa fa-trash-o "></i></button>
-                          <!-- Modal para editar oficina -->
-                           <div class="modal fade" id="editar-{{$item->id_oficina}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
-                            <div  class="modal-dialog" role="document">
-                                  
-                              <form class="modal-content" method="POST" action="/oficina/{{$item->id_oficina}}">
-                                @method('PUT')
-                                @csrf
-                                <div class="modal-header">
-                                  <h4 class="modal-title" id="myModalLabel">Editar Oficina</h4>
-                                </div>
-          
-                                <div class="modal-body">
-          
-                                  <div class="form-group">
-                                    <label for="codigo">Codigo</label>
-                                    <input type="text" class="form-control" name="cod" value={{$item->cod}}>
-                                  </div>
-          
-                                  <div class="form-group">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" name="nombre" value="{{$item->nombre}}">
-                                  </div>
-          
-                                </div>
-          
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                  <button type="submit" class="btn btn-primary">Guardar</button>
-                                </div>
-                              </form>
-
-                            </div>
-                          </div>
-                          <!-- Modal para editar oficina -->
-                                
-                                <!-- Modal para eliminar Contrato -->
-                                <div class="modal fade" id="eliminar-{{$item->id_oficina}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                            <h4 class="modal-title" id="myModalLabel">Eliminar</h4>
-                                          </div>
-
-                                            <div class="modal-body">
-                                            Deseas eliminar: <strong>{{$item->nombre}}</strong>
-                                            </div>
-
-                                            <form class="modal-footer" method="POST" action="{{ url("oficina/{$item->id_oficina}") }}">
-                                              @csrf
-                                              @method('DELETE')
-                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                              <button type="submit" class="btn btn-primary">Aceptar</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Modal para eliminar Contrato -->
-                            </td>
-                        </tr>
-
-                        @endforeach
-                          </tbody>
-                        </table>
-                      </div>
-                      <!-- /content-panel -->
-                </div>
-
-                <div class="showback">
-                  <h4><i class="fa fa-angle-right"></i> Contribuyente Persona Juridica</h4>
-                  {{-- <button href="/oficina/create" class="btn btn-primary" data-toggle="modal" data-target="#agregar_nuevo_contrato">Crear</button> --}}
-                  <button class="btn btn-primary" data-toggle="modal" data-target="#agregar_nuevo_contrato">Crear</button>
-
-                      <!-- Modal para agregar Contrato -->
-                       <div class="modal fade" id="agregar_nuevo_contrato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
-                        <div  class="modal-dialog" role="document">
-                              <form class="modal-content" method="POST" action="/oficina">
-                                @method('POST')
-                                @csrf
-                                <div class="modal-header">
-                                  <h4 class="modal-title" id="myModalLabel">Crear Oficina</h4>
-                                </div>
-          
-                                <div class="modal-body">
-          
-                                  <div class="form-group">
-                                    <label for="codigo">Codigo</label>
-                                    <input type="text" class="form-control" name="cod">
-                                  </div>
-          
-                                  <div class="form-group">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" name="nombre">
-                                  </div>
-          
-                                </div>
-          
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                  <button type="submit" class="btn btn-primary">Guardar</button>
-                                </div>
-                              </form>
-                            
-                        </div>
-                      </div>
-                      <!-- Modal para agregar Contrato -->
-
-
-                    <table class="table table-striped table-advance table-hover">
-      
-                      <hr>
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>RUC</th>
-                          <th>Razon Social</th>
-                          <th>Descripción</th>
-                          <th>Telefono</th>
-                          <th>Dirección</th>
-                          <th>Referencia</th>
-                          <th>Opciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @php
-                            $contador = 1
-                        @endphp
-                    @foreach ($contribuyenteRUC as $item)
-                    <tr>
-                        <td>{{$contador++}}</td>
-                        <td>{{$item->personaJuridica->ruc}}</td>
-                        <td>{{$item->personaJuridica->razon_social}}</td>
-                        <td>{{$item->personaJuridica->descripcion}}</td>
-                        <td>{{$item->contribuyente->numero_telefonico}}</td>
-                        <td>{{$item->contribuyente->direccion}}</td>
-                        <td>{{$item->contribuyente->referencia}}</td>
-                        {{-- <td>{{$item->personaNatural->profesion}}</td>
-                        <td>{{$item->contribuyente->numero_telefonico}}</td>
-                        <td>{{$item->contribuyente->direccion}}</td>
-                        <td>{{$item->contribuyente->referencia}}</td> --}}
-                        <td>
-                            {{-- <a class="btn btn-primary btn-xs" href="/oficina/{{$item->id_oficina}}/edit"><i class="fa fa-pencil"></i></a> --}}
-                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editar-{{$item->id_oficina}}"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar-{{$item->id_oficina}}"><i class="fa fa-trash-o "></i></button>
-                      <!-- Modal para editar oficina -->
-                       <div class="modal fade" id="editar-{{$item->id_oficina}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
-                        <div  class="modal-dialog" role="document">
-                              
-                          <form class="modal-content" method="POST" action="/oficina/{{$item->id_oficina}}">
-                            @method('PUT')
-                            @csrf
-                            <div class="modal-header">
-                              <h4 class="modal-title" id="myModalLabel">Editar Oficina</h4>
-                            </div>
-      
-                            <div class="modal-body">
-      
-                              <div class="form-group">
-                                <label for="codigo">Codigo</label>
-                                <input type="text" class="form-control" name="cod" value={{$item->cod}}>
-                              </div>
-      
-                              <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" name="nombre" value="{{$item->nombre}}">
-                              </div>
-      
-                            </div>
-      
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                              <button type="submit" class="btn btn-primary">Guardar</button>
-                            </div>
-                          </form>
-
-                        </div>
-                      </div>
-                      <!-- Modal para editar oficina -->
-                            
-                            <!-- Modal para eliminar Contrato -->
-                            <div class="modal fade" id="eliminar-{{$item->id_oficina}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
+                            <!-- Modal para agregar Contrato -->
+                            <div class="modal fade" id="agregar_nuevo_contrato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                              <div  class="modal-dialog" role="document">
+                                    <form class="modal-content" method="POST" action="/oficina">
+                                      @method('POST')
+                                      @csrf
                                       <div class="modal-header">
-                                        <h4 class="modal-title" id="myModalLabel">Eliminar</h4>
+                                        <h4 class="modal-title" id="myModalLabel">Crear Oficina</h4>
                                       </div>
-
-                                        <div class="modal-body">
-                                        Deseas eliminar: <strong>{{$item->nombre}}</strong>
+                
+                                      <div class="modal-body">
+                
+                                        <div class="form-group">
+                                          <label for="codigo">Codigo</label>
+                                          <input type="text" class="form-control" name="cod">
                                         </div>
-
-                                        <form class="modal-footer" method="POST" action="{{ url("oficina/{$item->id_oficina}") }}">
-                                          @csrf
-                                          @method('DELETE')
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                          <button type="submit" class="btn btn-primary">Aceptar</button>
-                                        </form>
-                                    </div>
-                                </div>
+                
+                                        <div class="form-group">
+                                          <label for="nombre">Nombre</label>
+                                          <input type="text" class="form-control" name="nombre">
+                                        </div>
+                
+                                      </div>
+                
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                      </div>
+                                    </form>
+                                  
+                              </div>
                             </div>
-                            <!-- Modal para eliminar Contrato -->
-                        </td>
-                    </tr>
+                            <!-- Modal para agregar Contrato -->
 
-                    @endforeach
-                      </tbody>
-                    </table>
-                  </div>
-                  <!-- /content-panel -->
-            </div>
 
-                <div class="col-lg-12">
-                  @if (session('estado_oficina'))
-                          @if (session('estado_oficina') == 1)
-                          <div class="alert alert-success alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <strong>Success!</strong> Se ha eliminado correctamente.
-                          </div>
-                          @else
-                          <div class="alert alert-danger alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <strong>Error!</strong> No se ha podido eliminar.
-                          </div>
-                          @endif
-                      @endif
+                          <table class="table table-striped table-advance table-hover">
+            
+                            <hr>
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>DNI / RUC</th>
+                                <th>Contribuyente</th>
+                                <th>Telefono</th>
+                                <th>Dirección</th>
+                                <th>Referencia</th>
+                                <th>Fecha Actualizada</th>
+                                <th>Opciones</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                          @foreach ($contribuyentes as $item)
+                          <tr>
+                              <td>{{$item->id_contribuyente}}</td>
+                              <td>
+                                @if ($item->ContribuyenteDNI)
+                                {{$item->ContribuyenteDNI->personaNatural->dni}}
+                                @else
+                                    @if ($item->ContribuyenteRUC)
+                                        {{$item->ContribuyenteRUC->personaJuridica->ruc}}
+                                    @endif
+                                @endif
+                              </td>
+                              <td>
+                                @if ($item->ContribuyenteDNI)
+                                {{$item->ContribuyenteDNI->personaNatural->apellido_pa}} {{$item->ContribuyenteDNI->personaNatural->apellido_ma}}, {{$item->ContribuyenteDNI->personaNatural->nombre}}
+                                @else
+                                    @if ($item->ContribuyenteRUC)
+                                        {{$item->ContribuyenteRUC->personaJuridica->razon_social}}
+                                    @endif
+                                @endif
+                              </td>
+                              {{-- <td>{{$item->personaNatural->dni}}</td> --}}
+                              {{-- <td>{{$item->personaNatural->apellido_pa}} {{$item->personaNatural->apellido_ma}}, {{$item->personaNatural->nombre}}</td> --}}
+                            
+                              <td>{{$item->numero_telefonico}}</td>
+                              <td>{{$item->direccion}}</td>
+                              <td>{{$item->referencia}}</td>
+                              <td>{{date('d/m/Y', strtotime($item->updated_at))}}</td>
+                              <td>
+                                  {{-- <a class="btn btn-primary btn-xs" href="/oficina/{{$item->id_oficina}}/edit"><i class="fa fa-pencil"></i></a> --}}
+                                  <button class="btn btn-primary btn-xs" title="editar" data-toggle="modal" data-target="#editar-{{$item->id_contribuyente}}"><i class="fa fa-pencil"></i></button>
+                            <!-- Modal para editar oficina -->
+                            <div class="modal fade" id="editar-{{$item->id_contribuyente}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                              <div  class="modal-dialog" role="document">
+                                    
+                                <form class="modal-content" method="POST" action="/contribuyente/{{$item->id_contribuyente}}">
+                                  @method('PUT')
+                                  @csrf
+                                  <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Editar Contribuyente</h4>
+                                  </div>
+            
+                                  <div class="modal-body">
+            
+                                    <div class="form-group">
+                                      <label for="codigo">DNI / RUC</label>
+                                      <input type="text" class="form-control" disabled value=@if ($item->ContribuyenteDNI)
+                                      "{{$item->ContribuyenteDNI->personaNatural->dni}}"
+                                      @else
+                                          @if ($item->ContribuyenteRUC)
+                                              "{{$item->ContribuyenteRUC->personaJuridica->ruc}}"
+                                          @endif
+                                      @endif>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="contribuyente">Contribuyente</label>
+                                      <input type="text" class="form-control" disabled value=@if ($item->ContribuyenteDNI)
+                                      "{{$item->ContribuyenteDNI->personaNatural->apellido_pa}} {{$item->ContribuyenteDNI->personaNatural->apellido_ma}}, {{$item->ContribuyenteDNI->personaNatural->nombre}}"
+                                      @else
+                                          @if ($item->ContribuyenteRUC)
+                                              "{{$item->ContribuyenteRUC->personaJuridica->razon_social}}"
+                                          @endif
+                                      @endif>
+                                    </div>
+            
+                                    <div class="form-group">
+                                      <label for="nombre">Telefono</label>
+                                      <input type="text" class="form-control" name="numero_telefonico" value="{{$item->numero_telefonico}}">
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="nombre">Dirección</label>
+                                      <input type="text" class="form-control" name="direccion" value="{{$item->direccion}}">
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="nombre">Referencia</label>
+                                      <input type="text" class="form-control" name="referencia" value="{{$item->referencia}}">
+                                    </div>
+            
+                                  </div>
+            
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                  </div>
+                                </form>
+
+                              </div>
+                            </div>
+                            <!-- Modal para editar oficina -->
+                            
+                              </td>
+                          </tr>
+
+                          @endforeach
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- /content-panel -->                          
+                      </div>
                 </div>
-                  @if (session('estado-create'))
-                  <div class="col-lg-12">
-                    @if (session('estado-create') == 1)
-                    <div class="alert alert-success alert-dismissable">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                      <strong>Success!</strong> Se ha creado correctamente.
-                    </div>
-                    @else
-                    <div class="alert alert-danger alert-dismissable">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                      <strong>Error!</strong> No se ha podido crear.
-                    </div>
-                    @endif
-                  </div>
-                @endif
-                @if (session('estado-update'))
+
+                <div class="col-lg-12 text-center">
+                  {{$contribuyentes->links()}}
+
+                </div>
                 <div class="col-lg-12">
-                  @if (session('estado-update') == 1)
-                  <div class="alert alert-success alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong>Success!</strong> Se ha actualizado correctamente.
-                  </div>
-                  @else
-                  <div class="alert alert-danger alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong>Error!</strong> No se ha podido actualizar.
-                  </div>
+                  @if (session('estado'))
+                      <div class="alert {{session('alert')}} alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        {{session('estado')}}
+                      </div>
                   @endif
                 </div>
-              @endif
-                
+                  
             </div>
         </section>
         <!-- /wrapper -->

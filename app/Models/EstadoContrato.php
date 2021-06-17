@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Identificacion_DNI extends Model
+class EstadoContrato extends Model
 {
     use HasFactory;
+    protected $table = 'estado_contrato';
+    protected $primaryKey = 'id_estado_contrato';
 }

@@ -10,7 +10,9 @@
                         <h5 class="centered">{{$item2->nombre}}</h5>
                     @endforeach
             @endif --}}
+            @if (auth()->user()->UserEmpleado)
             <h5 class="centered">{{auth()->user()->UserEmpleado->empleado->nombre}}</h5>
+            @endif
             <h6 class="centered">{{auth()->user()->UserRol->rol->nombre}}</h6>
             <p class="centered">
                 @if (auth()->user()->estado != 0)
@@ -36,7 +38,7 @@
                     </a>
                     <ul class="sub">
                         @foreach ($modulo->submodulo as $submodulo)
-                            <li><a href={{$submodulo->url}}>{{$submodulo->nombre}}</a></li>
+                            <li><a href={{ url($submodulo->url) }}>{{$submodulo->nombre}}</a></li>
                         @endforeach
                     </ul>
                 </li>

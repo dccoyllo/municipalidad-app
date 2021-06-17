@@ -12,6 +12,14 @@ class Contrato extends Model
     protected $primaryKey = 'id_contrato';
     public function servicio()
     {
-        return $this->belongsTo('App\Models\Servicios', 'id_servicio');
+        return $this->belongsTo('App\Models\Servicio', 'id_servicio');
+    }
+    public function contribuyente()
+    {
+        return $this->belongsTo('App\Models\Contribuyente', 'id_contribuyente');
+    }
+    public function estado_contrato()
+    {
+        return $this->belongsTo('App\Models\EstadoContrato', 'id_estado_contrato');
     }
 }

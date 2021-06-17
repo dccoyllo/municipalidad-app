@@ -13,9 +13,12 @@
     <link href={{ url('lib/bootstrap/css/bootstrap.min.css') }} rel="stylesheet">
     <!--external css-->
     <link href={{ url('lib/font-awesome/css/font-awesome.css') }} rel="stylesheet" />
+    <link href={{ url('lib/bootstrap-datepicker/css/datepicker.css') }} rel="stylesheet">
+
     <!-- Custom styles for this template -->
     <link href={{ url('css/style.css') }} rel="stylesheet">
     <link href={{ url('css/style-responsive.css') }} rel="stylesheet">
+
 </head>
 
 <body>

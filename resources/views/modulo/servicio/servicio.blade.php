@@ -85,7 +85,9 @@
                           <thead>
                             <tr>
                               <th>#</th>
+                              <th>Cod</th>
                               <th>Nombre</th>
+                              <th>Precio</th>
                               <th>Descripcion</th>
                               <th>Rubro</th>
                               {{-- <th>Fecha Actualizado</th> --}}
@@ -97,7 +99,9 @@
                         @foreach ($servicios as $item)
                         <tr>
                             <td>{{$item->id_servicio}}</td>
+                            <td>{{$item->abreviatura}}</td>
                             <td>{{$item->nombre}}</td>
+                            <td>{{ 'S/'.number_format($item->tarifa, 2) }}</td>
                             <td>{{$item->descripcion}}</td>
                             <td>{{$item->rubro}}</td>
                             {{-- <td>{{$item->updated_at}}</td> --}}
