@@ -10,10 +10,10 @@ class Rol extends Model
     use HasFactory;
     protected $table = 'rol';
     protected $primaryKey = 'id_rol';
-    public function RolSubModulo()
+    public function RolModulo()
     {
         // return $this->belongsToMany('App\Models\Rol', 'rol');
         // Si el id tienen diferentes nombres
-        return $this->hasMany('App\Models\RolSubModulo', 'id_rol', 'id_rol');
+        return $this->hasMany(RolModulo::class, 'id_rol', 'id_rol');
     }
 }

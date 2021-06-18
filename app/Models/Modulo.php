@@ -13,6 +13,6 @@ class Modulo extends Model
 
     public function submodulo()
     {
-        return $this->hasMany('App\Models\SubModulo', 'id_modulo');
+        return $this->hasMany(SubModulo::class, 'id_modulo');
     }
 }

@@ -29,20 +29,30 @@
                 </a>
             </li>
 
-            @foreach (auth()->user()->UserRol->rol->RolSubModulo as $item)
-                @foreach ($item->submodulo->modulo as $modulo)
+            @foreach (auth()->user()->UserRol->rol->RolModulo as $item)
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="{{$modulo->icono}}"></i>
-                        <span>{{$modulo->nombre}}</span>
+                        <i class="{{$item->modulo->icono}}"></i>
+                        <span>{{$item->modulo->nombre}}</span>
                     </a>
                     <ul class="sub">
-                        @foreach ($modulo->submodulo as $submodulo)
+                        @foreach ($item->modulo->submodulo as $submodulo)
                             <li><a href={{ url($submodulo->url) }}>{{$submodulo->nombre}}</a></li>
                         @endforeach
                     </ul>
-                </li>
-                @endforeach
+                </li> 
+
+               {{-- <li class="sub-menu">
+                   <a href="javascript:;">
+                       <i class="{{$modulo->icono}}"></i>
+                       <span>{{$modulo->nombre}}</span>
+                   </a>
+                   <ul class="sub">
+                       @foreach ($modulo->submodulo as $submodulo)
+                           <li><a href={{ url($submodulo->url) }}>{{$submodulo->nombre}}</a></li>
+                       @endforeach
+                   </ul>
+               </li> --}}
             @endforeach
         
         </ul>

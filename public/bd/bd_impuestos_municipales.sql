@@ -72,7 +72,6 @@ values
 (1, 'Empleados', 'fa', 1, 'empleado', 1),
 (2, 'Contratos', 'fa', 1, 'contrato', 5),
 (3, 'Crear contrato', 'fa', 1, 'contrato/create', 5),
-
 (4, 'Contribuyentes', 'fa', 1, 'contribuyente', 4),
 (5, 'Crear Contribuyente', 'fa', 1, 'contribuyente/create', 4),
 (6, 'Oficinas', 'fa', 1, 'oficina', 1),
@@ -81,17 +80,17 @@ values
 (9, 'Personas', 'fa', 1, 'persona', 3),
 (10, 'Empresas', 'fa', 1, 'empresa', 3);
 
-create table rol_submodulo
+create table rol_modulo
 (
-id_rol_submodulo int not null primary key auto_increment,
+id_rol_modulo int not null primary key auto_increment,
 id_rol int not null,
-id_submodulo int not null,
+id_modulo int not null,
 constraint fk_id_rol foreign key(id_rol)
 references rol(id_rol),
-constraint fk_id_submodulo foreign key(id_submodulo)
-references submodulo(id_submodulo)
+constraint fk_id_modulo foreign key(id_modulo)
+references modulo(id_modulo)
 );
-insert into rol_submodulo
+insert into rol_modulo
 values
 /*administrador*/
 (1, 1, 1),
@@ -100,21 +99,12 @@ values
 (4, 1, 4),
 (5, 1, 5),
 (6, 1, 6),
-(7, 1, 7),
-(8, 1, 8),
-(9, 1, 9),
-(10, 1, 10),
-
 /*logistica*/
-(11, 2, 9),
-(12, 2, 10),
-(13, 2, 4),
-(14, 2, 5),
-(15, 2, 2),
-(16, 2, 3),
-
+(7, 2, 3),
+(8, 2, 4),
+(9, 2, 5),
 /*operaciones*/
-(17, 3, 7);
+(10, 3, 6);
 
 create table servicio
 (

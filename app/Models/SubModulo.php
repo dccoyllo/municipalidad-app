@@ -12,12 +12,12 @@ class SubModulo extends Model
     protected $primaryKey = 'id_submodulo';
     public function modulo()
     {
-        return $this->hasMany('App\Models\Modulo', 'id_modulo');
+        return $this->belongsTo(Modulo::class, 'id_modulo');
     }
-    public function RolSubModulo()
-    {
-        // return $this->belongsToMany('App\Models\Rol', 'rol');
-        // Si el id tienen diferentes nombres
-        return $this->hasOne('App\Models\RolSubModulo', 'id_submodulo');
-    }
+    // public function RolSubModulo()
+    // {
+    //     // return $this->belongsToMany('App\Models\Rol', 'rol');
+    //     // Si el id tienen diferentes nombres
+    //     return $this->hasOne('App\Models\RolSubModulo', 'id_submodulo', 'id_submodulo');
+    // }
 }
