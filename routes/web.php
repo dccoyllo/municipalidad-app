@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::middleware(['auth', Administrador::class])->group(function () {
-    Route::get('/', [PageController::class, 'getInicio'])->name('inicio');
 
     Route::resource('servicio', ServicioController::class);
     Route::resource('oficina', OficinaController::class);
@@ -42,7 +41,6 @@ Route::middleware(['auth', Administrador::class])->group(function () {
 });
 
 Route::middleware(['auth', Logistica::class])->group(function () {
-    Route::get('/', [PageController::class, 'getInicio'])->name('inicio');
 
     Route::resource('persona', PersonaNaturalController::class);
     Route::resource('empresa', PersonaJuridicaController::class);
