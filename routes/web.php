@@ -14,7 +14,6 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Middleware\Administrador;
 use App\Http\Middleware\Logistica;
 use App\Http\Middleware\Operaciones;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
