@@ -20,42 +20,50 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::middleware(['auth', Administrador::class])->group(function () {
 
-    Route::resource('servicio', ServicioController::class);
-    Route::resource('oficina', OficinaController::class);
-    Route::resource('empleado', EmpleadoController::class);
-    Route::resource('usuario', UsuarioController::class);
-    Route::resource('modulo', ModuloController::class);
-
-    Route::resource('persona', PersonaNaturalController::class);
-    Route::resource('empresa', PersonaJuridicaController::class);
-
-    Route::resource('contribuyente', ContribuyenteController::class);
-    Route::resource('contrato', ContratoController::class);
-
-    Route::get('dni/{dni}', [BuscadorController::class, 'getSearchDNI']);
-    Route::get('ruc/{ruc}', [BuscadorController::class, 'getSearchRUC']);
-
+Route::group([
+    'middleware' => Administrador::class,
+    'prefix' => 'admin'
+], function () {
+    Route::get('/series', 'SeriesController@index');
+    Route::get('/series/{id}', 'SeriesController@edit');
 });
+Route::middleware(['auth'])->group(function () {
 
-Route::middleware(['auth', Logistica::class])->group(function () {
-
-    Route::resource('persona', PersonaNaturalController::class);
-    Route::resource('empresa', PersonaJuridicaController::class);
-
-    Route::resource('contribuyente', ContribuyenteController::class);
-    Route::resource('contrato', ContratoController::class);
-
-});
-
-Route::middleware(['auth', Operaciones::class])->group(function () {
+        Route::get('/', [PageController::class, 'getInicio'])->name('inicio');
+        Route::resource('servicio', ServicioController::class);
+        Route::resource('oficina', OficinaController::class);
+        Route::resource('empleado', EmpleadoController::class);
+        Route::resource('usuario', UsuarioController::class);
+        Route::resource('modulo', ModuloController::class);
     
-    Route::resource('servicio', ServicioController::class);
+        Route::resource('persona', PersonaNaturalController::class);
+        Route::resource('empresa', PersonaJuridicaController::class);
+    
+        Route::resource('contribuyente', ContribuyenteController::class);
+        Route::resource('contrato', ContratoController::class);
+    
+        Route::get('dni/{dni}', [BuscadorController::class, 'getSearchDNI']);
+        Route::get('ruc/{ruc}', [BuscadorController::class, 'getSearchRUC']);
 
 });
 
-Route::get('/', [PageController::class, 'getInicio'])->name('inicio')->middleware('auth');
+// Route::middleware([Logistica::class])->group(function () {
+
+//     Route::resource('persona', PersonaNaturalController::class);
+//     Route::resource('empresa', PersonaJuridicaController::class);
+
+//     Route::resource('contribuyente', ContribuyenteController::class);
+//     Route::resource('contrato', ContratoController::class);
+
+// });
+
+// Route::middleware(['auth', Operaciones::class])->group(function () {
+    
+//     Route::resource('servicio', ServicioController::class);
+
+// });
+
 
 Route::get('/login', [PageController::class, 'getLogin'])->name('login');
 Route::post('login', [PageController::class, 'dataLogin'])->name('dataLogin');

@@ -18,7 +18,6 @@ class Administrador
     {
         if(auth()->user()->UserRol->rol->id_rol == 1)
            return $next($request);
-
         return redirect('/error404');
     }
 }
