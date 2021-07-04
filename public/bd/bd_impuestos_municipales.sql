@@ -159,6 +159,39 @@ created_at timestamp,
 updated_at timestamp
 );
 
+create table terreno 
+(
+id_terreno int not null primary key auto_increment,
+ancho int(50),
+largo int(50),
+alto int(50),
+area int(50),
+piso int(50),
+tipo_construccion varchar (50),
+tipo_terreno varchar (50),
+id_contribuyente int,
+
+constraint fk_id_contribuyente_terreno foreign key(id_contribuyente)
+references contribuyente(id_contribuyente)
+);
+
+create table cobro_arbitrio 
+(
+id_cobro_arbitrio int not null primary key auto_increment,
+tipo_cobro varchar (100),
+costo_total int,
+estado varchar (1000),
+fecha date,
+
+id_terreno int,
+
+created_at timestamp,
+updated_at timestamp,
+
+constraint fk_id_arbitrio_terreno foreign key(id_terreno)
+references terreno(id_terreno)
+);
+
 create table contribuyente_dni
 (
 id_contribuyente_dni int not null primary key auto_increment,
