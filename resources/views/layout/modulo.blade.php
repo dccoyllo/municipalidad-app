@@ -22,12 +22,12 @@
                 @endif
             </p>
 
-            <li>
+            {{-- <li>
                 <a href="/">
                     <i class="fa fa-home"></i>
                     <span>Inicio</span>
                 </a>
-            </li>
+            </li> --}}
 
             @foreach (auth()->user()->UserRol->rol->RolModulo as $item)
                 <li class="sub-menu">

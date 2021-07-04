@@ -11,31 +11,56 @@ use App\Http\Controllers\PersonaJuridicaController;
 use App\Http\Controllers\PersonaNaturalController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Middleware\Administrador;
+use App\Http\Middleware\Logistica;
+use App\Http\Middleware\Operaciones;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
+Route::middleware(['auth', Administrador::class])->group(function () {
+
+    Route::resource('servicio', ServicioController::class);
+    Route::resource('oficina', OficinaController::class);
+    Route::resource('empleado', EmpleadoController::class);
+    Route::resource('usuario', UsuarioController::class);
+    Route::resource('modulo', ModuloController::class);
+
+    Route::resource('persona', PersonaNaturalController::class);
+    Route::resource('empresa', PersonaJuridicaController::class);
+
+    Route::resource('contribuyente', ContribuyenteController::class);
+    Route::resource('contrato', ContratoController::class);
+
+    Route::get('dni/{dni}', [BuscadorController::class, 'getSearchDNI']);
+    Route::get('ruc/{ruc}', [BuscadorController::class, 'getSearchRUC']);
+
+});
+
+Route::middleware(['auth', Logistica::class])->group(function () {
+
+    Route::resource('persona', PersonaNaturalController::class);
+    Route::resource('empresa', PersonaJuridicaController::class);
+
+    Route::resource('contribuyente', ContribuyenteController::class);
+    Route::resource('contrato', ContratoController::class);
+
+});
+
+Route::middleware(['auth', Operaciones::class])->group(function () {
+    
+    Route::resource('servicio', ServicioController::class);
+
+});
+
+Route::get('/', [PageController::class, 'getInicio'])->name('inicio')->middleware('auth');
+
 Route::get('/login', [PageController::class, 'getLogin'])->name('login');
 Route::post('login', [PageController::class, 'dataLogin'])->name('dataLogin');
 Route::get('/logout', [PageController::class, 'logout'])->name('logout');
-Route::get('/', [PageController::class, 'getInicio'])->name('inicio')->middleware('auth');
-
-Route::resource('servicio', ServicioController::class)->middleware('auth');
-Route::resource('oficina', OficinaController::class)->middleware('auth');
-Route::resource('empleado', EmpleadoController::class)->middleware('auth');
-Route::resource('usuario', UsuarioController::class)->middleware('auth');
-Route::resource('modulo', ModuloController::class)->middleware('auth');
-
-Route::resource('persona', PersonaNaturalController::class)->middleware('auth');
-Route::resource('empresa', PersonaJuridicaController::class)->middleware('auth');
-
-Route::resource('contribuyente', ContribuyenteController::class)->middleware('auth');
-Route::resource('contrato', ContratoController::class)->middleware('auth');
-
-Route::get('dni/{dni}', [BuscadorController::class, 'getSearchDNI'])->middleware('auth');
-Route::get('ruc/{ruc}', [BuscadorController::class, 'getSearchRUC'])->middleware('auth');
 
 
 

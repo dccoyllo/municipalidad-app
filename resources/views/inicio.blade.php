@@ -3,6 +3,7 @@
 @section('body')
     <!--main content start-->
     <section id="main-content">
+<<<<<<< HEAD
         <section class="wrapper site-min-height">
             <h3><i class="fa fa-angle-right"></i> Noticias</h3>
             <div class="row mt">
@@ -15,7 +16,12 @@
                 </div>
             </div>
         </section>
+=======
+        
+>>>>>>> 27cd4cdc9cd2c73310285c514e71f12ecc4a3d17
         <!-- /wrapper -->
+        
     </section>
+    
     <!--main content end-->
 @endsection
