@@ -53,7 +53,8 @@ values
 (3, "Administrar Clientes", "fa fa-money", 1),
 (4, "Administrar Contribuyente", "fa fa-handshake-o", 1),
 (5, "Administrar Contratos", "fa fa-book", 1),
-(6, "Administrar Servicios", "fa fa-cc", 1);
+(6, "Administrar Servicios", "fa fa-cc", 1),
+(7, "Administrar Cobros", "fa fa", 1);
 
 create table submodulo
 (
@@ -78,7 +79,9 @@ values
 (7, 'Servicios', 'fa', 1, 'servicio', 6),
 (8, 'Usuarios', 'fa', 1, 'usuario', 2),
 (9, 'Personas', 'fa', 1, 'persona', 3),
-(10, 'Empresas', 'fa', 1, 'empresa', 3);
+(10, 'Empresas', 'fa', 1, 'empresa', 3),
+(11, 'Arbitrios', 'fa', 1, 'detalles-arbitrios', 7),
+(12, 'Agregar', 'fa', 1, 'detalles-arbitrios/create', 7);
 
 create table rol_modulo
 (
@@ -99,12 +102,15 @@ values
 (4, 1, 4),
 (5, 1, 5),
 (6, 1, 6),
+
 /*logistica*/
 (7, 2, 3),
 (8, 2, 4),
 (9, 2, 5),
 /*operaciones*/
-(10, 3, 6);
+(10, 3, 6),
+(11, 3, 7),
+(12, 1, 7);
 
 create table servicio
 (
@@ -162,11 +168,11 @@ updated_at timestamp
 create table terreno 
 (
 id_terreno int not null primary key auto_increment,
-ancho int(50),
-largo int(50),
-alto int(50),
-area int(50),
-piso int(50),
+ancho int,
+largo int,
+alto double,
+area int,
+piso int,	
 tipo_construccion varchar (50),
 tipo_terreno varchar (50),
 id_contribuyente int,
@@ -174,23 +180,50 @@ id_contribuyente int,
 constraint fk_id_contribuyente_terreno foreign key(id_contribuyente)
 references contribuyente(id_contribuyente)
 );
+insert into terreno
+values
+(1, 50, 100, 2.5, 150, 2, "Material Noble", "Casa", 1),
+(2, 35, 70, 2.5, 120, 2, "Material Noble", "Casa", 2),
+(3, 45, 90, 2.5, 140, 2, "Material Noble", "Casa", 3),
+(4, 60, 120, 2.5, 170, 2, "Material Noble", "Casa", 4),
+(5, 55, 90, 2.5, 160, 2, "Material Noble", "Casa", 5),
+(6, 40, 80, 2.5, 120, 2, "Material Noble", "Casa", 6),
+(7, 45, 75, 2.5, 130, 2, "Material Noble", "Casa", 7),
+(8, 45, 110, 2.5, 140, 2, "Material Noble", "Casa", 8),
+(9, 45, 90, 2.5, 125, 2, "Material Noble", "Casa", 9),
+(10, 40, 70, 2.5, 110, 2, "Material Noble", "Casa", 10);
 
 create table cobro_arbitrio 
 (
 id_cobro_arbitrio int not null primary key auto_increment,
-tipo_cobro varchar (100),
-costo_total int,
-estado varchar (1000),
-fecha date,
-
-id_terreno int,
+tipo_pago varchar(100),
+precio_mensual double not null,
+pago_actual double,
+precio_anual double not null,
+descripcion varchar(1000),
+estado varchar(100),
+fecha_primer_pago date,
+fecha_ultimo_pago date,
+id_contribuyente int not null,
 
 created_at timestamp,
 updated_at timestamp,
 
-constraint fk_id_arbitrio_terreno foreign key(id_terreno)
-references terreno(id_terreno)
+constraint fk_id_contribuyente_cobro_arbitrio foreign key(id_contribuyente)
+references contribuyente(id_contribuyente)
 );
+insert into cobro_arbitrio
+values
+(1, "Mensual", 100, null, 1200, "sin descripción", "Pendiente", null, null, 1, current_date(), current_date()),
+(2, "Mensual", 100, null, 1200, "sin descripción", "Pendiente", null, null, 2, current_date(), current_date()),
+(3, "Mensual", 100, null, 1200, "sin descripción", "Pendiente", null, null, 3, current_date(), current_date()),
+(4, "Mensual", 100, null, 1200, "sin descripción", "Pendiente", null, null, 4, current_date(), current_date()),
+(5, "Mensual", 100, null, 1200, "sin descripción", "Pendiente", null, null, 5, current_date(), current_date()),
+(6, "Mensual", 100, null, 1200, "sin descripción", "Pendiente", null, null, 6, current_date(), current_date()),
+(7, "Mensual", 100, null, 1200, "sin descripción", "Pendiente", null, null, 7, current_date(), current_date()),
+(8, "Mensual", 100, null, 1200, "sin descripción", "Pendiente", null, null, 8, current_date(), current_date()),
+(9, "Mensual", 100, null, 1200, "sin descripción", "Pendiente", null, null, 9, current_date(), current_date()),
+(10, "Mensual", 100, null, 1200, "sin descripción", "Pendiente", null, null,10, current_date(), current_date());
 
 create table contribuyente_dni
 (

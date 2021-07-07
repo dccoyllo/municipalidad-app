@@ -23,6 +23,7 @@
     <div class="container">
       <form class="form-login" action={{ route('dataLogin') }} method="POST">
         @csrf
+        
         <h2 class="form-login-heading">Iniciar Sesion</h2>
         <div class="login-wrap">
           <input type="text" class="form-control" id="{{ $errors->has('cuenta') ? 'focusedInput' : '' }}" placeholder="Cuenta" autofocus name="cuenta">

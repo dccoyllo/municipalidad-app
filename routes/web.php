@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BuscadorController;
+use App\Http\Controllers\CobroArbitrioController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\ContribuyenteController;
 use App\Http\Controllers\EmpleadoController;
@@ -42,6 +43,9 @@ Route::middleware(['auth'])->group(function () {
     
         Route::resource('contribuyente', ContribuyenteController::class);
         Route::resource('contrato', ContratoController::class);
+
+        Route::resource('detalles-arbitrios', CobroArbitrioController::class)->names(['index'=>'arbitrios', 'create' =>'arbitrios-create', 'update' => 'arbitrios-update']);
+
     
         Route::get('dni/{dni}', [BuscadorController::class, 'getSearchDNI']);
         Route::get('ruc/{ruc}', [BuscadorController::class, 'getSearchRUC']);
