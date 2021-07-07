@@ -54,7 +54,7 @@ values
 (4, "Administrar Contribuyente", "fa fa-handshake-o", 1),
 (5, "Administrar Contratos", "fa fa-book", 1),
 (6, "Administrar Servicios", "fa fa-cc", 1),
-(7, "Administrar Cobros", "fa fa", 1);
+(7, "Administrar Cobros", "fa fa-usd", 1);
 
 create table submodulo
 (
